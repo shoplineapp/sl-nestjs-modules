@@ -1,0 +1,10 @@
+{
+  "name": "@sl-nest-module/open-api",
+  "version": "0.0.1",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "dependencies": {
+    "@sl-nest-module/dev-oauth": "*"
+  }
+}

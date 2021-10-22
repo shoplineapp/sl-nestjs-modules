@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "projects": {
+    "dev-oauth": {
+      "root": "packages/dev-oauth"
+    },
+    "open-api": {
+      "root": "packages/open-api"
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/workspace"
+  }
+}

@@ -1,0 +1,7 @@
+.commitlintrc.js
+console.ts
+dist
+gulpfile*.js
+jest.setup.ts
+node_modules
+open-api-sdk-node
