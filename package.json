@@ -2,9 +2,7 @@
   "name": "sl-nest-module",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
   "private": true,
-  "dependencies": {},
   "workspaces": [
     "packages/*"
   ],
@@ -14,12 +12,13 @@
     "@nrwl/tao": "12.10.0",
     "@nrwl/workspace": "12.10.0",
     "@types/node": "14.14.33",
-    "prettier": "^2.3.1",
-    "typescript": "~4.3.5",
     "@typescript-eslint/eslint-plugin": "^4.28.2",
     "@typescript-eslint/parser": "^4.28.2",
     "eslint": "^7.30.0",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^3.4.0"
-  }
+    "eslint-plugin-prettier": "^3.4.0",
+    "prettier": "^2.3.1",
+    "typescript": "~4.3.5"
+  },
+  "packageManager": "yarn@3.1.0"
 }
