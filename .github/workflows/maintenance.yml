@@ -1,0 +1,25 @@
+name: 'Maintenance'
+on:
+  push:
+    branches:
+      - master
+  pull_request_target:
+    branches:
+      - master
+    types: [synchronize]
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "${{ github.actor }}"
+      - name: check if prs are dirty
+        uses: eps1lon/actions-label-merge-conflict@releases/2.x
+        with:
+          dirtyLabel: 'PR: needs rebase'
+          removeOnDirtyLabel: 'PR: ready to ship'
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          commentOnDirty: 'This pull request has conflicts, please resolve those before we can evaluate the pull request.'
+          commentOnClean: 'Conflicts have been resolved. A maintainer will review the pull request shortly.'
+          retryAfter: 130
+          retryMax: 5

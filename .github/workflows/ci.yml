@@ -1,0 +1,19 @@
+name: General CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "${{ github.actor }}"
+      - uses: actions/checkout@v2
+      - name: setup Node.js 16
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+      - run: yarn install
+      - run: yarn test
+      - run: yarn release:build
