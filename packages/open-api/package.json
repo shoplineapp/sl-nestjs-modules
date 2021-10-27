@@ -1,5 +1,6 @@
 {
   "name": "@sl-nest-module/open-api",
+  "license": "MIT",
   "version": "0.0.1",
   "scripts": {
     "test": "node index.js"
