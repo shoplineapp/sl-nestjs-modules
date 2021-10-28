@@ -14,10 +14,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16
-      - name: install node dependencies
-        run: |
-          yarn install
-          yarn bootstrap
+      - run: yarn install
       - name: run unit test on each packages
         run: yarn test:sl-nest-module
       - name: test if packages can be successfully built
