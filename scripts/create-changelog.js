@@ -1,4 +1,4 @@
-import yargs from 'yargs';
+const yargs = require('yargs');
 
 console.log('hello');
 
@@ -7,7 +7,7 @@ function main() {}
 yargs
   .command({
     command: '$0',
-    describe: 'create release tag',
+    describe: 'create changelog',
     builder: (command) => command,
     handler: main,
   })
