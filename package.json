@@ -8,12 +8,12 @@
   ],
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "release:build": "lerna run --parallel --scope \"@sl-nest-module/*\" build",
-    "release:changelog": "ts-node ./scripts/createChangelog.ts",
+    "build:sl-nest-module": "lerna run --parallel --scope \"@sl-nest-module/*\" build",
+    "release:changelog": "echo \"WIP\" && exit 0",
     "release:publish": "lerna publish from-package --dist-tag latest --contents dist",
-    "release:tag": "ts-node ./scripts/createTag.ts",
+    "release:tag": "echo \"WIP\" && exit 0",
     "release:version": "lerna version --no-changelog --no-push --no-git-tag-version",
-    "test": "lerna run --parallel --scope \"@sl-nest-module/*\" test"
+    "test:sl-nest-module": "lerna run --parallel --scope \"@sl-nest-module/*\" test"
   },
   "devDependencies": {
     "@types/yargs": "^17.0.4",
