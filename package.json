@@ -7,7 +7,7 @@
     "packages/*"
   ],
   "scripts": {
-    "bootstrap": "lerna bootstrap",
+    "postinstall": "lerna bootstrap",
     "build:sl-nest-module": "lerna run --parallel --scope \"@sl-nest-module/*\" build",
     "local-npm": "verdaccio -c ./verdaccio.config.local.yaml",
     "release:changelog": "echo \"WIP\" && exit 0",
