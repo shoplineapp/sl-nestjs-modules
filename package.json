@@ -9,16 +9,23 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "build:sl-nest-module": "lerna run --parallel --scope \"@sl-nest-module/*\" build",
+    "local-npm": "verdaccio -c ./verdaccio.config.local.yaml",
     "release:changelog": "echo \"WIP\" && exit 0",
+    "release:publish:dry": "lerna publish from-package --dist-tag latest --contents dist --registry=\"http://localhost:4873/\" --yes --no-push --no-git-tag-version",
     "release:publish": "lerna publish from-package --dist-tag latest --contents dist",
     "release:tag": "echo \"WIP\" && exit 0",
     "release:version": "lerna version --no-changelog --no-push --no-git-tag-version",
+    "test:e2e:release": "node ./scripts/publish-npm.local.js",
     "test:sl-nest-module": "lerna run --parallel --scope \"@sl-nest-module/*\" test"
   },
   "devDependencies": {
+    "@types/node": "^16.11.6",
     "@types/yargs": "^17.0.4",
     "lerna": "^4.0.0",
     "prettier": "^2.3.1",
+    "rimraf": "^3.0.2",
+    "rxjs": "^7.4.0",
+    "verdaccio": "^5.2.0",
     "yargs": "^17.2.1"
   }
 }

@@ -1,0 +1,21 @@
+name: E2E for release
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  e2e_test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "${{ github.actor }}"
+      - uses: actions/checkout@v2
+      - name: setup Node.js 16
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+      - run: yarn install
+      - run: yarn release:build
+      - run: yarn test:e2e:release

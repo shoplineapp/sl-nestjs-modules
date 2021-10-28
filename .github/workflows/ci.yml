@@ -18,5 +18,7 @@ jobs:
         run: |
           yarn install
           yarn bootstrap
-      - run: yarn test:sl-nest-module
-      - run: yarn build:sl-nest-module
+      - name: run unit test on each packages
+        run: yarn test:sl-nest-module
+      - name: test if packages can be successfully built
+        run: yarn build:sl-nest-module
