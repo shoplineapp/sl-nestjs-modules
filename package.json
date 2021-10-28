@@ -6,11 +6,14 @@
   "workspaces": [
     "packages/*"
   ],
+  "repository": {
+    "url": "https://github.com/shoplineapp/sl-nestjs-modules.git"
+  },
   "scripts": {
     "postinstall": "lerna bootstrap",
     "build:sl-nest-module": "lerna run --parallel --scope \"@sl-nest-module/*\" build",
     "local-npm": "verdaccio -c ./verdaccio.config.local.yaml",
-    "release:changelog": "echo \"WIP\" && exit 0",
+    "release:changelog": "npx lerna-changelog",
     "release:publish:dry": "lerna publish from-package --dist-tag latest --contents dist --registry=\"http://localhost:4873/\" --yes --no-push --no-git-tag-version",
     "release:publish": "lerna publish from-package --dist-tag latest --contents dist",
     "release:tag": "echo \"WIP\" && exit 0",
