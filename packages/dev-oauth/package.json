@@ -1,11 +1,13 @@
 {
   "name": "@sl-nest-module/dev-oauth",
+  "license": "MIT",
   "version": "0.0.1",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rimraf dist && tsc",
+    "test": "echo \"Error: no test specified\" && exit 0",
+    "build": "rimraf dist && tsc && yarn copy-files",
+    "copy-files": "node ../../scripts/copy-files-to-dist.js",
     "prepublish": "npm run build"
   },
   "dependencies": {
