@@ -18,19 +18,50 @@ For different ways to provide the AWS region, see [here](https://docs.aws.amazon
 
 For different ways to provide the AWS credentials, see [here](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/setting-credentials-node.html).
 
+#### Example using sync initialization `AwsLambdaModule.register`
+
 ```typescript
 // foo.module.ts
 
 import { Module } from '@nestjs/common';
 import { AwsLambdaModule } from '@sl-nest-module/aws-lambda';
+import { fromWebToken } from '@aws-sdk/credential-providers';
 
 @Module({
   imports: [
     AwsLambdaModule.register({
-      region: configService.aws.region,
+      region: 'ap-southeast-1',
       credentials: fromWebToken({
-        roleArn: 'ap-southeast-1',
+        roleArn: 'arn:aws:iam::000000000000:role/XXXXX',
         webIdentityToken: '<web-identity-token>',
+      }),
+    }),
+  ],
+  providers: [FooService],
+})
+export class FooModule {}
+```
+
+#### Example using async initialization `AwsLambdaModule.registerAsync`
+
+```typescript
+// foo.module.ts
+
+import { Module } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { AwsLambdaModule } from '@sl-nest-module/aws-lambda';
+import { fromWebToken } from '@aws-sdk/credential-providers';
+
+@Module({
+  imports: [
+    AwsLambdaModule.registerAsync({
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        region: configService.get('AWS_REGION'),
+        credentials: fromWebToken({
+          roleArn: configService.get('AWS_ROLE_ARN'),
+          webIdentityToken: configService.get('AWS_WEB_IDENTITY_TOKEN'),
+        }),
       }),
     }),
   ],
