@@ -1,4 +1,4 @@
-import { SQSClient } from '@aws-sdk/client-sqs';
+import { SQSClient, SendMessageCommand } from '@aws-sdk/client-sqs';
 import { fromWebToken } from '@aws-sdk/credential-providers';
 import { Inject, Injectable } from '@nestjs/common';
 import { AwsSQSOptions } from './aws-sqs.options.interface';
@@ -13,28 +13,15 @@ export class AwsSQSService {
     this.client = new SQSClient({ region, credentials: fromWebToken({ roleArn, webIdentityToken }) });
   }
 
-  async sendMessage(req: AwsSqsSendMessageRequestDto) {
+  async sendMessage(queueUrl: string, messageBody: string) {
     try {
-      const dto = plainToClass(AwsSqsSendMessageRequestDto, req);
-
-      const errors = await validate(dto);
-      if (errors.length > 0) {
-        throw new AwsSqsSendMessageInvalidInputError(errors.toString());
-      }
-
       const message = new SendMessageCommand({
-        QueueUrl: dto.queueUrl,
-        MessageBody: dto.body,
+        QueueUrl: queueUrl,
+        MessageBody: messageBody,
       });
-
       await this.client.send(message);
     } catch (error) {
-      const errorMessage = (error as Error).message;
-      this.logger.error(`caught an error when AwsSqsService#sendMessage: ${errorMessage}`);
-      if (error instanceof AwsSqsSendMessageInvalidInputError) {
-        throw error;
-      }
-      throw new AwsSqsSendMessageError(errorMessage);
+      throw error;
     }
   }
 }
