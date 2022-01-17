@@ -1,4 +1,4 @@
-import { SQSClient, SendMessageCommand } from '@aws-sdk/client-sqs';
+import { SQSClient, SendMessageCommand, SendMessageCommandOutput } from '@aws-sdk/client-sqs';
 import { fromWebToken } from '@aws-sdk/credential-providers';
 import { Inject, Injectable } from '@nestjs/common';
 import { AwsSQSOptions } from './aws-sqs.options.interface';
@@ -13,15 +13,11 @@ export class AwsSQSService {
     this.client = new SQSClient({ region, credentials: fromWebToken({ roleArn, webIdentityToken }) });
   }
 
-  async sendMessage(queueUrl: string, messageBody: string) {
-    try {
-      const message = new SendMessageCommand({
-        QueueUrl: queueUrl,
-        MessageBody: messageBody,
-      });
-      await this.client.send(message);
-    } catch (error) {
-      throw error;
-    }
+  async sendMessage(queueUrl: string, messageBody: string): Promise<SendMessageCommandOutput> {
+    const message = new SendMessageCommand({
+      QueueUrl: queueUrl,
+      MessageBody: messageBody,
+    });
+    return this.client.send(message);
   }
 }
