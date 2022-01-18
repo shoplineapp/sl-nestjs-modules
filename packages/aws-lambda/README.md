@@ -76,6 +76,7 @@ export class FooModule {}
 // foo.service.ts
 
 import { Injectable } from '@nestjs/common';
+import { AwsLambdaService, constructLambdaArn, objectToPayload, payloadToObject } from '@sl-nest-module/aws-lambda';
 
 @Injectable()
 export class FooService {
@@ -83,11 +84,15 @@ export class FooService {
 
   async bar() {
     try {
-      const functionName = 'arn:aws:lambda:ap-southeast-1:000000000000:function:say-hello';
-      const payload = Buffer.from(JSON.stringify({ name: 'Peter' }));
-      const response = await this.awsLambdaService.invoke(functionName, payload); // Replace with your function name and payload
-      const parsedResponse = Buffer.from(response).toString();
-      console.log(parsedResponse); // Output: Hello Peter!
+      const functionArn = constructLambdaArn({
+        region: 'ap-southeast-1',
+        accountId: '000000000',
+        functionName: 'say-hello',
+      });
+      const payload = objectToPayload({ name: 'Peter' });
+      const response = await this.awsLambdaService.invoke(functionArn, payload);
+      const parsedResponse = payloadToObject(response) as { message: string };
+      console.log(parsedResponse.message); // Output: Hello Peter!
     } catch (error) {
       if (error instanceof AwsLambdaFunctionError || error instanceof AwsLambdaResponseError) {
         console.error('Encountered error with AWS Lambda:', error.message);
