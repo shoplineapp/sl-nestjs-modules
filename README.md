@@ -7,3 +7,4 @@ Collection of shared nestjs module used in developer-center apps
 | Package                                         | Version |
 | ----------------------------------------------- | ------- |
 | [@sl-nest-module/dev-oauth](packages/dev-oauth) | 0.0.1   |
+| [@sl-nest-module/aws-sqs](packages/aws-sqs)     | 0.0.1   |

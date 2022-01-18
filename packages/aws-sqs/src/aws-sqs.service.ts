@@ -1,4 +1,4 @@
-import { SQSClient, SendMessageCommand, SendMessageCommandOutput } from '@aws-sdk/client-sqs';
+import { SQSClient, SendMessageCommand } from '@aws-sdk/client-sqs';
 import { fromWebToken } from '@aws-sdk/credential-providers';
 import { Inject, Injectable } from '@nestjs/common';
 import { AwsSQSOptions } from './aws-sqs.options.interface';
