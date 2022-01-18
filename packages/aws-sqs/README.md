@@ -12,20 +12,27 @@ yarn add @sl-nest-module/aws-sqs
 
 ### Registering Module
 
-The AWS `region`, `roleArn`, and `webIdentityToken` are used to initialize the SQS client
+The AWS region and credentials are used to initialize the SQS client SDK. If not provided, the default setting will be used.
+
+For setting of the AWS region, see [here](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/setting-region.html).
+
+For setting of the AWS credentials, see [here](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/setting-credentials-node.html).
 
 ```typescript
 // foo.module.ts
 
 import { Module } from '@nestjs/common';
 import { AwsSQSModule } from '@sl-nest-module/aws-sqs';
+import { fromWebToken } from '@aws-sdk/credential-providers';
 
 @Module({
   imports: [
     AwsSQSModule.register({
       region: 'ap-southeast-1',
-      roleArn: 'arn:aws:iam::000000000000:role/XXXXX',
-      webIdentityToken: '<web-identity-token>',
+      credentials: fromWebToken({
+        roleArn: 'arn:aws:iam::000000000000:role/XXXXX',
+        webIdentityToken: '<web-identity-token>',
+      }),
     }),
   ],
   providers: [FooService],
@@ -41,14 +48,17 @@ export class FooModule {}
 import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AwsSQSModule } from '@sl-nest-module/aws-sqs';
+import { fromWebToken } from '@aws-sdk/credential-providers';
 
 @Module({
   imports: [
     AwsSQSModule.registerAsync({
       useFactory: (config: ConfigService) => ({
         region: config.region,
-        roleArn: config.roleArn,
-        webIdentityToken: config.webIdentityToken,
+        credentials: fromWebToken({
+          roleArn: config.roleArn,
+          webIdentityToken: config.webIdentityToken,
+        }),
       }),
       inject: [ConfigService],
     }),

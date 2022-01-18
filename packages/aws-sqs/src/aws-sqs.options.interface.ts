@@ -1,9 +1,9 @@
 import { ModuleMetadata } from '@nestjs/common/interfaces';
+import { Credentials, Provider } from '@aws-sdk/types';
 
 export interface AwsSQSOptions {
-  region: string;
-  roleArn: string;
-  webIdentityToken: string;
+  region?: string;
+  credentials?: Credentials | Provider<Credentials>;
 }
 
 export interface AwsSQSAsyncOptions extends Pick<ModuleMetadata, 'imports'> {
