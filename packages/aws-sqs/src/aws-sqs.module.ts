@@ -5,6 +5,20 @@ import { AWS_SQS_OPTIONS } from './constants';
 
 @Module({})
 export class AwsSQSModule {
+  static register(opts: AwsSQSOptions): DynamicModule {
+    return {
+      module: AwsSQSModule,
+      providers: [
+        {
+          provide: AWS_SQS_OPTIONS,
+          useValue: opts,
+        },
+        AwsSQSService,
+      ],
+      exports: [AwsSQSService],
+    };
+  }
+
   static registerAsync({ useFactory, inject }: AwsSQSAsyncOptions): DynamicModule {
     return {
       module: AwsSQSModule,

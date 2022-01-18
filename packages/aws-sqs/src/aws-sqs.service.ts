@@ -13,11 +13,11 @@ export class AwsSQSService {
     this.client = new SQSClient({ region, credentials: fromWebToken({ roleArn, webIdentityToken }) });
   }
 
-  async sendMessage(queueUrl: string, messageBody: string): Promise<SendMessageCommandOutput> {
+  async sendMessage(queueUrl: string, messageBody: string): Promise<void> {
     const message = new SendMessageCommand({
       QueueUrl: queueUrl,
       MessageBody: messageBody,
     });
-    return this.client.send(message);
+    await this.client.send(message);
   }
 }
