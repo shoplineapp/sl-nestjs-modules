@@ -1,22 +1,34 @@
 import { Test } from '@nestjs/testing';
+import { CredentialProvider } from '@aws-sdk/types';
 import { InvokeCommand, InvokeCommandOutput, LambdaClient } from '@aws-sdk/client-lambda';
 import { AwsLambdaService } from './aws-lambda.service';
 import { AwsLambdaFunctionError, AwsLambdaResponseError } from './aws-lambda.errors';
-import { AwsLambdaInvokeResponse } from './aws-lambda.interfaces';
+import { AwsLambdaInvokeResponse, AwsLambdaOptions } from './aws-lambda.interfaces';
+import { AWS_LAMBDA_OPTIONS } from './aws-lambda.constants';
 
 jest.mock('@aws-sdk/client-lambda');
 
 describe('AwsLambdaService', () => {
+  let mockRegion: string;
+  let mockCredentials: CredentialProvider;
+  let mockAwsLambdaOptions: AwsLambdaOptions;
   let awsLambdaService: AwsLambdaService;
-  let lambdaClient: LambdaClient;
 
   beforeEach(async () => {
+    mockRegion = 'mock-region';
+    mockCredentials = {} as never;
+    mockAwsLambdaOptions = { region: mockRegion, credentials: mockCredentials };
+
     const module = await Test.createTestingModule({
-      providers: [AwsLambdaService, LambdaClient],
+      providers: [{ provide: AWS_LAMBDA_OPTIONS, useValue: mockAwsLambdaOptions }, AwsLambdaService],
     }).compile();
 
     awsLambdaService = module.get(AwsLambdaService);
-    lambdaClient = module.get(LambdaClient);
+  });
+
+  test('create LambdaClient', () => {
+    expect(LambdaClient).toBeCalledTimes(1);
+    expect(LambdaClient).toBeCalledWith(mockAwsLambdaOptions);
   });
 
   describe('#invoke', () => {
@@ -32,7 +44,7 @@ describe('AwsLambdaService', () => {
       mockPayload = Buffer.from('mock-buffer');
       mockOutputPayload = new Uint8Array();
       mockOutput = { Payload: mockOutputPayload } as never;
-      lambdaClientSendMock = jest.spyOn(lambdaClient, 'send').mockResolvedValue(mockOutput as never);
+      lambdaClientSendMock = jest.spyOn(LambdaClient.prototype, 'send').mockResolvedValue(mockOutput as never);
       invoke = () => awsLambdaService.invoke(mockFunctionName, mockPayload);
     });
 

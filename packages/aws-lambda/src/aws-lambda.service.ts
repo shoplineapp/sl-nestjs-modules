@@ -1,12 +1,17 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { InvokeCommand, LambdaClient } from '@aws-sdk/client-lambda';
 import { AwsLambdaFunctionError, AwsLambdaResponseError } from './aws-lambda.errors';
-import { AwsLambdaInvokeResponse } from './aws-lambda.interfaces';
+import { AwsLambdaInvokeResponse, AwsLambdaOptions } from './aws-lambda.interfaces';
+import { AWS_LAMBDA_OPTIONS } from './aws-lambda.constants';
 
 /** Service class providing interface to AWS Lambda */
 @Injectable()
 export class AwsLambdaService {
-  constructor(private readonly client: LambdaClient) {}
+  private readonly client: LambdaClient;
+
+  constructor(@Inject(AWS_LAMBDA_OPTIONS) options: AwsLambdaOptions) {
+    this.client = new LambdaClient(options);
+  }
 
   /**
    * Invoke a AWS Lambda function

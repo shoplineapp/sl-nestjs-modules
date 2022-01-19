@@ -1,5 +1,4 @@
 import { DynamicModule, Module } from '@nestjs/common';
-import { LambdaClient } from '@aws-sdk/client-lambda';
 import { AwsLambdaService } from './aws-lambda.service';
 import { AwsLambdaAsyncOptions, AwsLambdaOptions } from './aws-lambda.interfaces';
 import { AWS_LAMBDA_OPTIONS } from './aws-lambda.constants';
@@ -17,13 +16,7 @@ export class AwsLambdaModule {
   static register(options: AwsLambdaOptions): DynamicModule {
     return {
       module: AwsLambdaModule,
-      providers: [
-        {
-          provide: LambdaClient,
-          useValue: new LambdaClient(options),
-        },
-        AwsLambdaService,
-      ],
+      providers: [{ provide: AWS_LAMBDA_OPTIONS, useValue: options }, AwsLambdaService],
       exports: [AwsLambdaService],
     };
   }
@@ -36,15 +29,7 @@ export class AwsLambdaModule {
   static registerAsync({ inject, useFactory }: AwsLambdaAsyncOptions): DynamicModule {
     return {
       module: AwsLambdaModule,
-      providers: [
-        { provide: AWS_LAMBDA_OPTIONS, inject, useFactory },
-        {
-          provide: LambdaClient,
-          inject: [AWS_LAMBDA_OPTIONS],
-          useFactory: (options) => new LambdaClient(options),
-        },
-        AwsLambdaService,
-      ],
+      providers: [{ provide: AWS_LAMBDA_OPTIONS, inject, useFactory }, AwsLambdaService],
       exports: [AwsLambdaService],
     };
   }
