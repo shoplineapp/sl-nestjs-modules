@@ -28,6 +28,8 @@ export type AwsLambdaAsyncOptions = {
  * The response from invoking an AWS Lambda
  */
 export type AwsLambdaInvokeResponse = {
+  /** Payload responded from the AWS Lambda */
   payload: Uint8Array;
+  /** HTTP status code responded from the AWS Lambda */
   statusCode: number;
 };

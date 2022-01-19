@@ -91,8 +91,8 @@ export class FooService {
       });
       const payload = objectToPayload({ name: 'Peter' });
       const response = await this.awsLambdaService.invoke(functionArn, payload);
-      const parsedResponse = payloadToObject(response) as { message: string };
-      console.log(parsedResponse.message); // Output: Hello Peter!
+      const parsedPayload = payloadToObject(response.payload) as { message: string };
+      console.log(parsedPayload.message); // Output: Hello Peter!
     } catch (error) {
       if (error instanceof AwsLambdaFunctionError || error instanceof AwsLambdaResponseError) {
         console.error('Encountered error with AWS Lambda:', error.message);
