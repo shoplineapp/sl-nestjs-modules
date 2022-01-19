@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InvokeCommand, LambdaClient } from '@aws-sdk/client-lambda';
 import { AwsLambdaFunctionError, AwsLambdaResponseError } from './aws-lambda.errors';
+import { AwsLambdaInvokeResponse } from './aws-lambda.interfaces';
 
 /** Service class providing interface to AWS Lambda */
 @Injectable()
@@ -13,7 +14,7 @@ export class AwsLambdaService {
    * @param payload Payload to send to the AWS Lambda function
    * @returns Payload responded from the AWS Lambda function
    */
-  async invoke(functionName: string, payload: Buffer): Promise<Uint8Array | undefined> {
+  async invoke(functionName: string, payload: Buffer): Promise<AwsLambdaInvokeResponse> {
     const command = new InvokeCommand({
       FunctionName: functionName,
       Payload: payload,
@@ -25,6 +26,6 @@ export class AwsLambdaService {
     if (output.StatusCode < 200 || output.StatusCode > 299) {
       throw new AwsLambdaResponseError(output.StatusCode, output.Payload);
     }
-    return output.Payload;
+    return { payload: output.Payload, statusCode: output.StatusCode };
   }
 }

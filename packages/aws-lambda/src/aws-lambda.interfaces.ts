@@ -23,3 +23,11 @@ export type AwsLambdaAsyncOptions = {
   /** Factory function to provide the `AwsLambdaOptions` for the module */
   useFactory: (...args: any[]) => AwsLambdaOptions | Promise<AwsLambdaOptions>;
 };
+
+/**
+ * The response from invoking an AWS Lambda
+ */
+export type AwsLambdaInvokeResponse = {
+  payload: Uint8Array;
+  statusCode: number;
+};

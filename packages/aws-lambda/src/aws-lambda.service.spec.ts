@@ -2,6 +2,7 @@ import { Test } from '@nestjs/testing';
 import { InvokeCommand, InvokeCommandOutput, LambdaClient } from '@aws-sdk/client-lambda';
 import { AwsLambdaService } from './aws-lambda.service';
 import { AwsLambdaFunctionError, AwsLambdaResponseError } from './aws-lambda.errors';
+import { AwsLambdaInvokeResponse } from './aws-lambda.interfaces';
 
 jest.mock('@aws-sdk/client-lambda');
 
@@ -61,13 +62,16 @@ describe('AwsLambdaService', () => {
     });
 
     describe('when the output does not have a FunctionError', () => {
+      let mockStatusCode: number;
       describe("when the output's StatusCode is in the 200 range", () => {
         beforeEach(() => {
-          mockOutput.StatusCode = 200;
+          mockStatusCode = 200;
+          mockOutput.StatusCode = mockStatusCode;
         });
 
         test('resolve with parsed output payload', async () => {
-          await expect(invoke()).resolves.toEqual(mockOutputPayload);
+          const expectedResponse: AwsLambdaInvokeResponse = { payload: mockOutputPayload, statusCode: mockStatusCode };
+          await expect(invoke()).resolves.toEqual(expectedResponse);
         });
       });
 

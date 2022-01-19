@@ -1,7 +1,7 @@
 import { DynamicModule, Module } from '@nestjs/common';
 import { LambdaClient } from '@aws-sdk/client-lambda';
 import { AwsLambdaService } from './aws-lambda.service';
-import { AwsLambdaAsyncOptions, AwsLambdaOptions } from './aws-lambda.interface';
+import { AwsLambdaAsyncOptions, AwsLambdaOptions } from './aws-lambda.interfaces';
 import { AWS_LAMBDA_OPTIONS } from './aws-lambda.constants';
 
 /**
