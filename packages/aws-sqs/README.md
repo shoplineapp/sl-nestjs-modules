@@ -70,6 +70,18 @@ export class FooModule {}
 
 ### Sending Message to AWS SQS
 
+The `queueUrl` and `messageBody` are required to send the meesage.
+
+#### queueUrl
+
+The URL of the Amazon SQS queue to which a message is sent. Queue URLs and names are case-sensitive.
+
+#### messageBody
+
+The message to send. The minimum size is one character. The maximum size is 256 KB. A message can include only XML, JSON, and unformatted text.
+
+For more information, see [here](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-sqs/interfaces/sendmessagecommandinput.html).
+
 ```typescript
 // foo.service.ts
 
