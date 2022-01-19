@@ -5,16 +5,25 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 0",
+    "test": "jest",
+    "test:cov": "jest --coverage",
     "build": "rimraf dist && tsc && yarn copy-files",
     "copy-files": "node ../../scripts/copy-files-to-dist.js",
     "prepublish": "npm run build"
   },
   "dependencies": {
     "@aws-sdk/client-sqs": "^3.47.0",
-    "@nestjs/common": "^8.1.1"
+    "@nestjs/common": "^8.1.1",
+    "@nestjs/core": "^8.2.5",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "^7.5.2"
   },
   "devDependencies": {
+    "@nestjs/testing": "^8.2.5",
+    "@types/jest": "^27.4.0",
+    "jest": "^27.4.7",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^27.1.3",
     "typescript": "^4.4.4"
   },
   "peerDependencies": {
