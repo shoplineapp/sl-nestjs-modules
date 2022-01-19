@@ -55,3 +55,9 @@ To configure npm to the use local registry, add this to `.npmrc`
 ```
 
 _Hint: If you need to install your local package in CI environment, you may use [ngrok](https://ngrok.com/) to generate a url pointing to your local registry and use that url in `yarnrc.yml` or `.npmrc`_
+
+## Publishing to npm
+
+Before publishing your packages to npm, make sure you have logged in to your npm account using [`npm login`](https://docs.npmjs.com/cli/v7/commands/npm-adduser) or by adding `//registry.npmjs.org/:_authToken=<token>` to your `.npmrc`. For more on npm token, see [here](https://docs.npmjs.com/creating-and-viewing-access-tokens).
+
+To publish new packages, run `yarn release:publish`, which will scan all packages and publish them if their current version cannot be found in the registry. If you have any packages that are still in progress that should not be published yet, you can add `private: true` in its `package.json` to prevent it from being published.
