@@ -2,6 +2,30 @@
 
 Before contributing to this project, please read the following carefully.
 
+## Project structure
+
+This project is a monorepo structured using [Lerna](https://github.com/lerna/lerna). It contains several different packages in the `packages` directory, each package being self-contained and has its own `package.json` defining its own version and dependencies
+
+_File structure of a minimal package_
+
+```
+.
+└── hello-world
+    ├── src
+    │   ├── hello-world.module.ts
+    │   ├── hello-world.service.ts
+    │   └── index.ts
+    ├── package.json
+    └── tsconfig.json
+```
+
+## Creating a new package
+
+The fastest way to create a new package would be to copy all files from an existing package and modify several places,
+
+- For `package.json`, modify `name` and `version`, and remove any `dependencies` you don't need
+- Remove all files in `src` except the `*.module.ts`, `*service.ts`, and `index.ts`. And rename them with your package name
+
 ## Testing with local npm registry
 
 In order to verify that a package is working as intended, you should install the package in another project from a local npm registry, and test the package's functionalities in that project.
