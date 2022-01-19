@@ -6,7 +6,7 @@ Before contributing to this project, please read the following carefully.
 
 This project is a monorepo structured using [Lerna](https://github.com/lerna/lerna). It contains several different packages in the `packages` directory, each package being self-contained and has its own `package.json` defining its own version and dependencies
 
-_File structure of a minimal package_
+File structure of a minimal package
 
 ```
 .
@@ -14,9 +14,92 @@ _File structure of a minimal package_
     ├── src
     │   ├── hello-world.module.ts
     │   ├── hello-world.service.ts
+    │   ├── hello-world.service.spec.ts
     │   └── index.ts
+    ├── jest.config.json
+    ├── jest.setup.js
     ├── package.json
     └── tsconfig.json
+```
+
+A minimal example `package.json`
+
+```json
+{
+  "name": "@sl-nest-module/hello-world",
+  "license": "MIT",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "jest",
+    "test:cov": "jest --coverage",
+    "build": "rimraf dist && tsc && yarn copy-files",
+    "copy-files": "node ../../scripts/copy-files-to-dist.js",
+    "prepublish": "npm run build"
+  },
+  "dependencies": {
+    "@nestjs/core": "^8.0.6",
+    "@nestjs/common": "^8.1.1",
+    "rxjs": "^7.4.0",
+    "reflect-metadata": "^0.1.13"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.0.1",
+    "@nestjs/testing": "^8.0.6",
+    "jest": "^27.0.6",
+    "ts-jest": "^27.0.3",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.4.4"
+  },
+  "peerDependencies": {
+    "reflect-metadata": "*"
+  }
+}
+```
+
+A minimal example `tsconfig.json`
+
+```json
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es6",
+    "sourceMap": false,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "baseUrl": "./",
+    "noLib": false
+  },
+  "exclude": ["node_modules", "dist", "jest.setup.ts"]
+}
+```
+
+A minimal example `jest.config.json`
+
+```json
+{
+  "moduleFileExtensions": ["js", "json", "ts"],
+  "rootDir": "src",
+  "testRegex": ".*\\.spec\\.ts$",
+  "transform": {
+    "^.+\\.(t|j)s$": "ts-jest"
+  },
+  "collectCoverageFrom": ["**/*.service.(t|j)s"],
+  "coverageDirectory": "../coverage",
+  "testEnvironment": "node",
+  "setupFiles": ["../jest.setup.ts"]
+}
+```
+
+A minimal example `jest.setup.js`
+
+```js
+import 'reflect-metadata';
 ```
 
 ## Creating a new package
