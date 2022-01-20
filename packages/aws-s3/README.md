@@ -83,7 +83,7 @@ export class FooService {
   constructor(private readonly awsS3Service: AwsS3Service) {}
 
   async bar() {
-    const response = await this.AwsS3Service.getObject('<bucket-name>', '<object-key>');
+    const response = await this.awsS3Service.getObject('<bucket-name>', '<object-key>');
     return response.data;
   }
 }
