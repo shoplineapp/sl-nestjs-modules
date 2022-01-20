@@ -3,7 +3,7 @@ import { Test } from '@nestjs/testing';
 import { CredentialProvider } from '@aws-sdk/types';
 import { GetObjectCommand, GetObjectCommandOutput, S3Client } from '@aws-sdk/client-s3';
 import { AwsS3Service } from './aws-s3.service';
-import { AwsS3GetObjectResponse, AwsS3Options } from './aws-s3.interfaces';
+import { AwsS3Options } from './aws-s3.interfaces';
 import { AWS_S3_OPTIONS } from './aws-s3.constants';
 
 jest.mock('@aws-sdk/client-s3');
@@ -57,9 +57,8 @@ describe('AwsS3Service', () => {
       expect(s3ClientSendSpy).toBeCalledWith(getObjectCommand);
     });
 
-    test('return AwsS3GetObjectResponse', async () => {
-      const expectedResponse: AwsS3GetObjectResponse = { data: mockData };
-      await expect(getObject()).resolves.toEqual(expectedResponse);
+    test('return GetObjectCommandOutput', async () => {
+      await expect(getObject()).resolves.toEqual(mockOutput);
     });
   });
 });

@@ -25,11 +25,3 @@ export type AwsS3AsyncOptions = {
   /** Factory function to provide the `AwsS3Options` for the module */
   useFactory: (...args: any[]) => AwsS3Options | Promise<AwsS3Options>;
 };
-
-/**
- * The response from getting an object from a AWS S3 bucket
- */
-export type AwsS3GetObjectResponse = {
-  /** Object data */
-  data: Readable | ReadableStream | Blob;
-};

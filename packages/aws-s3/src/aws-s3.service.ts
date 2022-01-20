@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { GetObjectCommand, S3Client } from '@aws-sdk/client-s3';
-import { AwsS3GetObjectResponse, AwsS3Options } from './aws-s3.interfaces';
+import { GetObjectCommand, GetObjectCommandOutput, S3Client } from '@aws-sdk/client-s3';
+import { AwsS3Options } from './aws-s3.interfaces';
 import { AWS_S3_OPTIONS } from './aws-s3.constants';
 
 /** Service class providing interface to AWS S3 */
@@ -18,12 +18,12 @@ export class AwsS3Service {
    * @param key Key of the object to get
    * @return Response from getting an S3 object
    */
-  async getObject(bucketName: string, key: string): Promise<AwsS3GetObjectResponse> {
+  async getObject(bucketName: string, key: string): Promise<GetObjectCommandOutput> {
     const command = new GetObjectCommand({
       Bucket: bucketName,
       Key: key,
     });
     const output = await this.client.send(command);
-    return { data: output.Body };
+    return output;
   }
 }

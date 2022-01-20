@@ -84,7 +84,7 @@ export class FooService {
 
   async bar() {
     const response = await this.awsS3Service.getObject('<bucket-name>', '<object-key>');
-    return response.data;
+    return response.Body;
   }
 }
 ```
