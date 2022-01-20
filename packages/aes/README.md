@@ -41,7 +41,7 @@ The passphrase used to generate a 256-bit encryption key. A passphrase can be an
 
 #### ciphertext
 
-The cihpertext to be decrypted. A cihpertext is a stringify CipherParams object created by the encrypt function.
+The ciphertext to be decrypted. A ciphertext is a stringify CipherParams object created by the encrypt function.
 
 #### passphrase
 
