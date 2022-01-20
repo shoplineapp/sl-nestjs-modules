@@ -8,6 +8,7 @@ describe('AwsLambdaService', () => {
   const passphrase = 'test-passphrase';
   const incorrectPassphrase = 'incorrect-passpharse';
   const cipherParams = AES.encrypt(message, passphrase);
+  const fakeCipherText = AES.encrypt(message, incorrectPassphrase).toString();
   const ciphertext = cipherParams.toString();
 
   beforeEach(async () => {
@@ -38,8 +39,8 @@ describe('AwsLambdaService', () => {
 
     test('should return empty string', async () => {
       const aesSpy = jest.spyOn(AES, 'decrypt');
-      expect(service.decrypt(ciphertext, incorrectPassphrase)).toBe('');
-      expect(aesSpy).toBeCalledWith(ciphertext, incorrectPassphrase);
+      expect(service.decrypt(fakeCipherText, passphrase)).toBe('');
+      expect(aesSpy).toBeCalledWith(fakeCipherText, passphrase);
     });
   });
 });

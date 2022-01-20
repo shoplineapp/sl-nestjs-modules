@@ -29,25 +29,23 @@ export class FooModule {}
 
 ### Encrypt Message
 
-#### message
+`AESService.encrypt`
 
-The message to be encrypted. A message can be any string.
-
-#### passphrase
-
-The passphrase used to generate a 256-bit encryption key. A passphrase can be any string.
+| Parameter  | Description                                                                               |
+| ---------- | ----------------------------------------------------------------------------------------- |
+| message    | The message to be encrypted. A message can be any string.                                 |
+| passphrase | The passphrase used to generate a 256-bit encryption key. A passphrase can be any string. |
 
 ### Decrypt Message
 
-#### ciphertext
+`AESService.decrypt`
 
-The ciphertext to be decrypted. A ciphertext is a stringify CipherParams object created by the encrypt function.
+| Parameter  | Description                                                                                                                    |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| ciphertext | The ciphertext to be decrypted. A ciphertext is a stringify CipherParams object created by the encrypt function.               |
+| passphrase | The passphrase used to generate a 256-bit decryption key. A decryption passphrase should be same of the encryption passphrase. |
 
-#### passphrase
-
-The passphrase used to generate a 256-bit decryption key. A decryption passphrase should be same of the encryption passphrase.
-
-An empty string will be returned if the decryption fail.
+An empty string will be returned if fail to decrypt ciphertext.
 
 ```typescript
 // foo.service.ts
