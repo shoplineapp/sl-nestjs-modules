@@ -1,7 +1,7 @@
 {
-  "name": "@sl-nest-module/aws-sqs",
+  "name": "@sl-nest-module/google-analytics",
   "license": "MIT",
-  "version": "0.0.1",
+  "version": "0.0.15",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -12,22 +12,19 @@
     "prepublish": "npm run build"
   },
   "dependencies": {
-    "@aws-sdk/client-sqs": "^3.47.0",
-    "@nestjs/common": "^8.1.1",
-    "@nestjs/core": "^8.2.5",
-    "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.5.2"
+    "@nestjs/axios": "^0.0.4",
+    "@nestjs/event-emitter": "^1.0.0",
+    "@nestjs/testing": "^8.2.5",
+    "class-validator": "^0.13.2",
+    "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
+    "@nestjs/core": "^8.2.5",
     "@nestjs/testing": "^8.2.5",
     "@types/jest": "^27.4.0",
     "jest": "^27.4.7",
     "rimraf": "^3.0.2",
     "ts-jest": "^27.1.3",
-    "typescript": "^4.4.4"
-  },
-  "peerDependencies": {
-    "reflect-metadata": "*"
-  },
-  "gitHead": "10e142c2ddcced6a31dccce4a3561cde995c5e42"
+    "typescript": "^4.5.4"
+  }
 }

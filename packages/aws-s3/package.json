@@ -14,20 +14,21 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.34.0",
     "@aws-sdk/credential-providers": "^3.35.0",
-    "@nestjs/core": "^8.0.6",
     "@nestjs/common": "^8.1.1",
-    "rxjs": "^7.4.0",
-    "reflect-metadata": "^0.1.13"
+    "@nestjs/core": "^8.0.6",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "^7.4.0"
   },
   "devDependencies": {
-    "@types/jest": "^27.0.1",
     "@nestjs/testing": "^8.0.6",
+    "@types/jest": "^27.0.1",
     "jest": "^27.0.6",
-    "ts-jest": "^27.0.3",
     "rimraf": "^3.0.2",
+    "ts-jest": "^27.0.3",
     "typescript": "^4.4.4"
   },
   "peerDependencies": {
     "reflect-metadata": "*"
-  }
+  },
+  "gitHead": "10e142c2ddcced6a31dccce4a3561cde995c5e42"
 }
