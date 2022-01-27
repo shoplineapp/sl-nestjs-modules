@@ -1,20 +1,35 @@
 import { HttpModule } from '@nestjs/axios';
 import { DynamicModule, Module } from '@nestjs/common';
 import { GoogleAnalyticsService } from './google-analytics.service';
-import { CONFIG_OPTIONS } from './constants';
-import { ConfigOptions } from './google-analytics.options.interface';
+import { GA_CONFIG_OPTIONS } from './constants';
+import { GoogleAnalyticsConfigOption, GoogleAnalyticsAsyncConfigOption } from './google-analytics.options.interface';
 @Module({})
 export class GoogleAnalyticsModule {
-  static register(options: ConfigOptions): DynamicModule {
+  static register(options: GoogleAnalyticsConfigOption): DynamicModule {
     return {
-      global: true,
       module: GoogleAnalyticsModule,
       imports: [HttpModule],
       providers: [
         GoogleAnalyticsService,
         {
-          provide: CONFIG_OPTIONS,
+          provide: GA_CONFIG_OPTIONS,
           useValue: options,
+        },
+      ],
+      exports: [GoogleAnalyticsService],
+    };
+  }
+
+  static registerAsync({ inject, useFactory }: GoogleAnalyticsAsyncConfigOption): DynamicModule {
+    return {
+      module: GoogleAnalyticsModule,
+      imports: [HttpModule],
+      providers: [
+        GoogleAnalyticsService,
+        {
+          provide: GA_CONFIG_OPTIONS,
+          inject,
+          useFactory,
         },
       ],
       exports: [GoogleAnalyticsService],
