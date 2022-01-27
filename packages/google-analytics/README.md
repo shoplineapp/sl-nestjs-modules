@@ -19,7 +19,7 @@ Measurement ID and API secret are two necessary components for the module. The f
 2. Open admin setting in the left bottom of the menu
 
 3. Select 'Data Streams' > Click 'Add stream' and select 'Web'
-![step 3](https://github.com/shoplineapp/sl-nestjs-modules/blob/feature/HKIN-323-google-analytics/packages/google-analytics/assets/measurement-3.png)
+   ![step 3](https://github.com/shoplineapp/sl-nestjs-modules/blob/feature/HKIN-323-google-analytics/packages/google-analytics/assets/measurement-3.png)
 
 4. Fill in the field and create stream
 
@@ -56,9 +56,36 @@ import { GoogleAnalyticsModule } from '@sl-nest-module/google-analytics';
 export class FooModule {}
 ```
 
-Client ID, event name are necessary and should be passed to the function. The event payload, on the other hand, is optional and can be passed with an empty object.
+Users are advised to implement their own `ConfigService`. Insofar as the API offers `.ga.id` and `.ga.secret`, which read Google Analytics measurement ID and API secret from configuration file, the following example will suffice.
+
+#### Example using async initialization `GoogleAnalyticsServiceModule.registerAsync`
+
+```typescript
+// foo.module.ts
+
+import { Module } from '@nestjs/common';
+import { ConfigService } from '~config/config.service';
+import { GoogleAnalyticsModule } from '@sl-nest-module/google-analytics';
+
+@Module({
+  imports: [
+    GoogleAnalyticsModule.registerAsync({
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => ({
+        id: config.ga.id,
+        secret: config.ga.secret,
+      }),
+    }),
+  ],
+  providers: [FooService],
+})
+export class FooModule {}
+```
+
+Client ID, event name are necessary parameters to the function. The event payload, on the other hand, is optional and can be passed with an empty object.
 
 #### Invoking Google Analytics function
+
 `logEvent`
 
 ```typescript
@@ -80,7 +107,7 @@ export class FooService {
 
       const eventPayload = {
         data1: field1,
-        data2: field2
+        data2: field2,
       };
 
       const clientID: string = '2678188960.1638459419';

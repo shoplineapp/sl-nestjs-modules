@@ -1,19 +1,26 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable, Inject } from '@nestjs/common';
 import { lastValueFrom } from 'rxjs';
-import { CONFIG_OPTIONS } from './constants';
-import { ConfigOptions } from './google-analytics.options.interface';
+import { GA_CONFIG_OPTIONS } from './constants';
+import { GoogleAnalyticsConfigOption } from './google-analytics.options.interface';
 
 @Injectable()
 export class GoogleAnalyticsService {
   constructor(
-    @Inject(CONFIG_OPTIONS) private options: ConfigOptions,
+    @Inject(GA_CONFIG_OPTIONS) private options: GoogleAnalyticsConfigOption,
     private readonly http: HttpService
-  ) { }
+  ) {}
 
-  async logEvent(clientId:string, eventName: string, eventPayload: any) {
+  /**
+   * Invoke a logEvent function
+   * @param clientId Mandatory client ID. See [here](https://developers.google.com/analytics/devguides/collection/protocol/ga4/reference?client_type=gtag#payload_post_body) for more details
+   * @param eventName Required event name for the post body posted to Google Analytics via logEvent. See [here](https://developers.google.com/analytics/devguides/collection/protocol/ga4/reference?client_type=gtag#payload_post_body) for more details
+   * @param eventPayload Optional event payload for the post body posted to Google Analytics via logEvent. See [here](https://developers.google.com/analytics/devguides/collection/protocol/ga4/reference?client_type=gtag#payload_post_body) for more details
+   * @returns Payload responded from the logEvent function
+   */
+  async logEvent(clientId: string, eventName: string, eventPayload: any) {
     try {
-      const { id, secret} = this.options;
+      const { id, secret } = this.options;
 
       const data = {
         client_id: clientId,
@@ -25,10 +32,7 @@ export class GoogleAnalyticsService {
         ],
       };
       const res = await lastValueFrom(
-        this.http.post(
-          `https://www.google-analytics.com/mp/collect?measurement_id=${id}&api_secret=${secret}`,
-          data
-        )
+        this.http.post(`https://www.google-analytics.com/mp/collect?measurement_id=${id}&api_secret=${secret}`, data)
       );
 
       return res;
