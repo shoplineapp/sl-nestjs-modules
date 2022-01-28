@@ -20,25 +20,21 @@ export class GoogleAnalyticsService {
    * For more details of all parameters, see [here](https://developers.google.com/analytics/devguides/collection/protocol/ga4/reference?client_type=gtag#payload_post_body)
    */
   async logEvent(clientId: string, eventName: string, eventPayload: any) {
-    try {
-      const { id, secret } = this.options;
+    const { measurementId, secret } = this.options;
 
-      const data = {
-        client_id: clientId,
-        events: [
-          {
-            name: eventName,
-            params: eventPayload,
-          },
-        ],
-      };
-      const res = await lastValueFrom(
-        this.http.post(`https://www.google-analytics.com/mp/collect?measurement_id=${id}&api_secret=${secret}`, data)
-      );
+    const data = {
+      client_id: clientId,
+      events: [
+        {
+          name: eventName,
+          params: eventPayload,
+        },
+      ],
+    };
+    const res = await lastValueFrom(
+      this.http.post(`https://www.google-analytics.com/mp/collect?measurement_id=${measurementId}&api_secret=${secret}`, data)
+    );
 
-      return res;
-    } catch (err) {
-      throw err;
-    }
+    return res;
   }
 }

@@ -19,7 +19,7 @@ describe('GoogleAnalyticsService', () => {
         {
           provide: GA_CONFIG_OPTIONS,
           useValue: {
-            id: 'id',
+            measurementId: 'id',
             secret: 'secret',
           },
         },
