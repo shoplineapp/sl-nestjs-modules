@@ -13,10 +13,11 @@ export class GoogleAnalyticsService {
 
   /**
    * Invoke a logEvent function
-   * @param clientId Mandatory client ID. See [here](https://developers.google.com/analytics/devguides/collection/protocol/ga4/reference?client_type=gtag#payload_post_body) for more details
-   * @param eventName Required event name for the post body posted to Google Analytics via logEvent. See [here](https://developers.google.com/analytics/devguides/collection/protocol/ga4/reference?client_type=gtag#payload_post_body) for more details
-   * @param eventPayload Optional event payload for the post body posted to Google Analytics via logEvent. See [here](https://developers.google.com/analytics/devguides/collection/protocol/ga4/reference?client_type=gtag#payload_post_body) for more details
+   * @param clientId Mandatory client ID.
+   * @param eventName Required event name for the post body posted to Google Analytics via logEvent.
+   * @param eventPayload Optional event payload for the post body posted to Google Analytics via logEvent.
    * @returns Payload responded from the logEvent function
+   * For more details of all parameters, see [here](https://developers.google.com/analytics/devguides/collection/protocol/ga4/reference?client_type=gtag#payload_post_body)
    */
   async logEvent(clientId: string, eventName: string, eventPayload: any) {
     try {
