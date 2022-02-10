@@ -1,13 +1,13 @@
-import { SendMessageCommand, SQSClient } from '@aws-sdk/client-sqs';
+import { SESClient, SendEmailCommand } from '@aws-sdk/client-ses';
 import { Credentials } from '@aws-sdk/types';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AwsSESOptions } from './aws-ses.options.interface';
 import { AwsSESService } from './aws-ses.service';
 import { AWS_SES_OPTIONS } from './constants';
 
-jest.mock('@aws-sdk/client-sqs');
+jest.mock('@aws-sdk/client-ses');
 
-describe('AwsSQSService', () => {
+describe('AwsSESService', () => {
   let mockRegion: string;
   let mockCredentials: Credentials;
   let mockOpts: AwsSESOptions;
@@ -25,24 +25,31 @@ describe('AwsSQSService', () => {
     service = module.get(AwsSESService);
   });
 
-  it('create SQSClient', () => {
-    expect(SQSClient).toBeCalledTimes(1);
-    expect(SQSClient).toBeCalledWith(mockOpts);
+  it('create SESClient', () => {
+    expect(SESClient).toBeCalledTimes(1);
+    expect(SESClient).toBeCalledWith(mockOpts);
   });
 
-  describe('#sendMessage', () => {
-    const mockQueueUrl = 'mock-queue-url';
-    const mockMessageBody = 'mock-message';
-    const mockMessage = {
-      QueueUrl: mockQueueUrl,
-      MessageBody: mockMessageBody,
-    };
+  describe('#sendEmail', () => {
+    const mockSender = 'mock-sender';
+    const mockAddresses = ['mock-address'];
+    const mockSubject = 'mock-subject';
+    const mockBody = 'mock-body'
+    const expectCommand = {
+      Destination: { ToAddresses: mockAddresses },
+      Message: {
+        Body: { Html: { Charset: 'UTF-8', Data: mockBody } },
+        Subject: { Charset: 'UTF-8', Data: mockSubject },
+      },
+      Source: mockSender,
+      ReplyToAddresses: [mockSender],
+    }
 
-    it('should send message', async () => {
-      const clientSendSpy = jest.spyOn(SQSClient.prototype, 'send').mockResolvedValue({} as never);
-      await expect(service.sendMessage(mockQueueUrl, mockMessageBody)).resolves.toBe(undefined);
-      expect(SendMessageCommand).toBeCalledWith(mockMessage);
-      expect(clientSendSpy).toBeCalledWith(expect.any(SendMessageCommand));
+    it('should send email', async () => {
+      const clientSendSpy = jest.spyOn(SESClient.prototype, 'send').mockResolvedValue({} as never);
+      await expect(service.sendEmail(mockSender, mockAddresses, mockSubject, mockBody)).resolves.toBe(undefined);
+      expect(SendEmailCommand).toBeCalledWith(expectCommand);
+      expect(clientSendSpy).toBeCalledWith(expect.any(SendEmailCommand));
     });
   });
 });
