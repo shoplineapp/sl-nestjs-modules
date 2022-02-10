@@ -13,7 +13,6 @@
   },
   "dependencies": {
     "@aws-sdk/client-ses": "^3.50.0",
-    "@aws-sdk/client-sqs": "^3.47.0",
     "@nestjs/common": "^8.1.1",
     "@nestjs/core": "^8.2.5",
     "reflect-metadata": "^0.1.13",

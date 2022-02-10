@@ -2,7 +2,7 @@ import { ModuleMetadata } from '@nestjs/common/interfaces';
 import { Credentials, Provider } from '@aws-sdk/types';
 
 /**
- * The configuration interface of the AwsSQSModule
+ * The configuration interface of the AwsSESModule
  */
 export interface AwsSESOptions {
   /**
@@ -16,7 +16,7 @@ export interface AwsSESOptions {
 }
 
 /**
- * The async configuration interface of the AwsSQSModule
+ * The async configuration interface of the AwsSESModule
  */
 export interface AwsSESAsyncOptions extends Pick<ModuleMetadata, 'imports'> {
   useFactory?: (...args: any[]) => Promise<AwsSESOptions> | AwsSESOptions;
