@@ -1,18 +1,18 @@
-# @sl-nest-module/aws-sqs
+# @sl-nest-module/aws-ses
 
-[AWS SQS](https://aws.amazon.com/sqs/) module for [NestJS](https://docs.nestjs.com/) project
+[AWS SES](https://aws.amazon.com/ses/) module for [NestJS](https://docs.nestjs.com/) project
 
 ## Installation
 
 ```sh
-yarn add @sl-nest-module/aws-sqs
+yarn add @sl-nest-module/aws-ses
 ```
 
 ## Usage
 
 ### Registering Module
 
-The AWS region and credentials are used to initialize the SQS client SDK. If not provided, the default setting will be used.
+The AWS region and credentials are used to initialize the SES client SDK. If not provided, the default setting will be used.
 
 For setting of the AWS region, see [here](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/setting-region.html).
 
@@ -22,12 +22,12 @@ For setting of the AWS credentials, see [here](https://docs.aws.amazon.com/sdk-f
 // foo.module.ts
 
 import { Module } from '@nestjs/common';
-import { AwsSQSModule } from '@sl-nest-module/aws-sqs';
+import { AwsSESModule } from '@sl-nest-module/aws-ses';
 import { fromWebToken } from '@aws-sdk/credential-providers';
 
 @Module({
   imports: [
-    AwsSQSModule.register({
+    AwsSESModule.register({
       region: 'ap-southeast-1',
       credentials: fromWebToken({
         roleArn: 'arn:aws:iam::000000000000:role/XXXXX',
@@ -47,12 +47,12 @@ export class FooModule {}
 
 import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { AwsSQSModule } from '@sl-nest-module/aws-sqs';
+import { AwsSESModule } from '@sl-nest-module/aws-ses';
 import { fromWebToken } from '@aws-sdk/credential-providers';
 
 @Module({
   imports: [
-    AwsSQSModule.registerAsync({
+    AwsSESModule.registerAsync({
       useFactory: (config: ConfigService) => ({
         region: config.region,
         credentials: fromWebToken({
@@ -68,32 +68,36 @@ import { fromWebToken } from '@aws-sdk/credential-providers';
 export class FooModule {}
 ```
 
-### Sending Message to AWS SQS
+### Sending Email through AWS SES
 
-`AwsSQSService.sendMessage`
+`AwsSESService.sendEmail`
 
-| Parameter   | Description                                                                                                                                     |
-| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| queueUrl    | The URL of the Amazon SQS queue to which a message is sent. Queue URLs and names are case-sensitive.                                            |
-| messageBody | The message to send. The minimum size is one character. The maximum size is 256 KB. A message can include only XML, JSON, and unformatted text. |
+| Parameter   | Description                                                                                                                                                                   |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| sender      | The email address that is sending the email. This email address must be either individually verified with Amazon SES, or from a domain that has been verified with Amazon SES |
+| toAddresses | The destination email addresses for the email                                                                                                                                 |
+| subject     | The subject of the email                                                                                                                                                      |
+| body        | The body of the email                                                                                                                                                         |
 
-For more information, see [here](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-sqs/interfaces/sendmessagecommandinput.html).
+For more information, see [here](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-ses/interfaces/sendemailcommandinput.html).
 
 ```typescript
 // foo.service.ts
 
 import { Injectable } from '@nestjs/common';
-import { AwsSQSService } from '@sl-nest-module/aws-sqs';
+import { AwsSESService } from '@sl-nest-module/aws-ses';
 
 @Injectable()
 export class FooService {
-  constructor(private readonly awsSQSService: AwsSQSService) {}
+  constructor(private readonly awsSESService: AwsSESService) {}
 
-  async sendMessage() {
+  async sendEmail() {
     try {
-      const queueUrl = '<queueUrl>';
-      const messageBody = '<message body>';
-      await this.awsSQSService.sendMessage(queueUrl, messageBody);
+      const sender = '<email address of sender>';
+      const toAddresses = ['<email address of receivers>'];
+      const subject = '<email subject>';
+      const body = '<email body>';
+      await this.awsSESService.sendEmail(sender, toAddresses, subject, body);
     } catch (error) {
       // Handle error
     }
