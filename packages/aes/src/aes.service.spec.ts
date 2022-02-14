@@ -2,7 +2,7 @@ import { Test } from '@nestjs/testing';
 import { AES, enc } from 'crypto-js';
 import { AESService } from './aes.service';
 
-describe('AwsLambdaService', () => {
+describe('AesService', () => {
   let service: AESService;
   const message = 'test-message';
   const passphrase = 'test-passphrase';
