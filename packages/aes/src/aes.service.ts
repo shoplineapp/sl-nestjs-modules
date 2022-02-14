@@ -12,9 +12,7 @@ export class AESService {
    */
   encrypt(message: string, passphrase: string) {
     const result = AES.encrypt(message, passphrase).toString();
-    const encodedData = enc.Base64.stringify(enc.Utf8.parse(result));
-
-    return encodedData;
+    return enc.Base64.stringify(enc.Utf8.parse(result));
   }
 
   /**
@@ -25,8 +23,6 @@ export class AESService {
    */
   decrypt(ciphertext: string, passphrase: string) {
     const decData = enc.Base64.parse(ciphertext).toString(enc.Utf8);
-    const result = AES.decrypt(decData, passphrase).toString(enc.Utf8);
-
-    return result;
+    return AES.decrypt(decData, passphrase).toString(enc.Utf8);
   }
 }
