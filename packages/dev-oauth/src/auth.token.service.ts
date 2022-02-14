@@ -22,13 +22,13 @@ export class DeveloperOAuthTokenService {
       })
     );
 
-    return res;
+    return res.data;
   }
 
   async refreshToken({ token, refreshToken }: DeveloperOAuthRefreshTokenOpts) {
     const res = await this.tokenInfo(token);
 
-    if (res.data.expires_in > 0) return token;
+    if (res.expires_in > 0) return token;
 
     const refreshRes = await lastValueFrom(
       this.http.post(`${this.opts.host}/oauth/token`, {
