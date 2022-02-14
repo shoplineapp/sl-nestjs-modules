@@ -1,15 +1,17 @@
 import { Test } from '@nestjs/testing';
-import { AES } from 'crypto-js';
+import { AES, enc } from 'crypto-js';
 import { AESService } from './aes.service';
 
-describe('AwsLambdaService', () => {
+describe('AesService', () => {
   let service: AESService;
   const message = 'test-message';
   const passphrase = 'test-passphrase';
   const incorrectPassphrase = 'incorrect-passpharse';
   const cipherParams = AES.encrypt(message, passphrase);
-  const fakeCipherText = AES.encrypt(message, incorrectPassphrase).toString();
-  const ciphertext = cipherParams.toString();
+  const ciphertext = enc.Base64.stringify(enc.Utf8.parse(cipherParams.toString()));
+
+  const fakeCipherParams = AES.encrypt(message, incorrectPassphrase);
+  const fakeCipherText = enc.Base64.stringify(enc.Utf8.parse(fakeCipherParams.toString()));
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
@@ -34,13 +36,13 @@ describe('AwsLambdaService', () => {
     test('should return plaintext', async () => {
       const aesSpy = jest.spyOn(AES, 'decrypt');
       expect(service.decrypt(ciphertext, passphrase)).toBe(message);
-      expect(aesSpy).toBeCalledWith(ciphertext, passphrase);
+      expect(aesSpy).toBeCalledWith(cipherParams.toString(), passphrase);
     });
 
     test('should return empty string', async () => {
       const aesSpy = jest.spyOn(AES, 'decrypt');
       expect(service.decrypt(fakeCipherText, passphrase)).toBe('');
-      expect(aesSpy).toBeCalledWith(fakeCipherText, passphrase);
+      expect(aesSpy).toBeCalledWith(fakeCipherParams.toString(), passphrase);
     });
   });
 });

@@ -11,7 +11,8 @@ export class AESService {
    * @return The ciphertext, which is a stringify CipherParams object
    */
   encrypt(message: string, passphrase: string) {
-    return AES.encrypt(message, passphrase).toString();
+    const result = AES.encrypt(message, passphrase).toString();
+    return enc.Base64.stringify(enc.Utf8.parse(result));
   }
 
   /**
@@ -21,6 +22,7 @@ export class AESService {
    * @return The plaintext string. An empty string will be returned if fail to decrypt ciphertext
    */
   decrypt(ciphertext: string, passphrase: string) {
-    return AES.decrypt(ciphertext, passphrase).toString(enc.Utf8);
+    const decData = enc.Base64.parse(ciphertext).toString(enc.Utf8);
+    return AES.decrypt(decData, passphrase).toString(enc.Utf8);
   }
 }
