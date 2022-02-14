@@ -77,7 +77,7 @@ export class FooModule {}
 | sender      | The email address that is sending the email. This email address must be either individually verified with Amazon SES, or from a domain that has been verified with Amazon SES |
 | toAddresses | The destination email addresses for the email                                                                                                                                 |
 | subject     | The subject of the email                                                                                                                                                      |
-| body        | The body of the email                                                                                                                                                         |
+| body        | The HTML body of the email email                                                                                                                                              |
 
 For more information, see [here](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-ses/interfaces/sendemailcommandinput.html).
 

@@ -17,7 +17,7 @@ export class AwsSESService {
    * @param sender The email address that is sending the email
    * @param toAddresses The destination email addresses for the email
    * @param subject The subject of the email
-   * @param body The body of the email
+   * @param body The HTML body of the email
    */
   async sendEmail(sender: string, toAddresses: string[], subject: string, body: string): Promise<void> {
     const command = new SendEmailCommand({
