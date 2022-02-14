@@ -22,7 +22,7 @@ export class DeveloperOAuthTokenService {
       })
     );
 
-    return res;
+    return res.data;
   }
 
   async refreshToken({ token, refreshToken }: DeveloperOAuthRefreshTokenOpts) {
