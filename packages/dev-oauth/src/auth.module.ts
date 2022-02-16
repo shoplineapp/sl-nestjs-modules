@@ -5,6 +5,7 @@ import { DeveloperOAuthAsyncOptions, DeveloperOAuthOptions } from './auth.option
 import { DEVELOPER_OAUTH_OPTIONS } from './constants';
 import { JwtStrategy } from './jwt.strategies';
 import { HttpModule } from '@nestjs/axios';
+import { DeveloperOAuthTokenService } from './auth.token.service';
 
 @Module({})
 export class DeveloperOAuthModule {
@@ -28,6 +29,7 @@ export class DeveloperOAuthModule {
           useValue: opts,
         },
         JwtStrategy,
+        DeveloperOAuthTokenService,
       ],
     };
   }
@@ -51,6 +53,7 @@ export class DeveloperOAuthModule {
           inject: inject ?? [],
         },
         JwtStrategy,
+        DeveloperOAuthTokenService,
         DeveloperOAuthOptionsProvider,
       ],
     };
