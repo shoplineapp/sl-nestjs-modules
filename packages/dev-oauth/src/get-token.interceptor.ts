@@ -1,3 +1,4 @@
+import { ReadTokenFunctionMissingError } from './auth.errors';
 import { CallHandler, ExecutionContext, Inject, Injectable, NestInterceptor } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { DeveloperOAuthOptions } from './auth.options.interface';
@@ -13,6 +14,7 @@ export class GetTokenInterceptor implements NestInterceptor {
 
   async intercept<T>(context: ExecutionContext, next: CallHandler): Promise<Observable<T>> {
     const request = context.switchToHttp().getRequest();
+    if (!this.opts.readToken) throw new ReadTokenFunctionMissingError()
     const { token, refreshToken } = await this.opts.readToken(request);
     const isTokenExpired = await this.service.checkExpiry(token);
 

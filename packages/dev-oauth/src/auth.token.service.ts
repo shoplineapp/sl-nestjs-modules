@@ -39,13 +39,7 @@ export class DeveloperOAuthTokenService {
 
   async checkExpiry(token: string): Promise<boolean> {
     try {
-      await lastValueFrom(
-        this.http.get(`https://${this.opts.host}/oauth/token/info`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-      );
+      await this.tokenInfo(token)
     } catch (error) {
       if (error.response?.data?.code === 'TOKEN_EXPIRED') {
         return true;

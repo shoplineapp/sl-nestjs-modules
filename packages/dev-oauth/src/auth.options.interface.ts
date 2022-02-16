@@ -11,7 +11,7 @@ export interface DeveloperOAuthOptions {
   appId: string;
   appSecret: string;
   redirectUri?: string;
-  readToken: (request: any) => Promise<DeveloperOAuthRefreshTokenOpts>;
+  readToken?: (request: any) => Promise<DeveloperOAuthRefreshTokenOpts>;
   writeToken?: (request: any, { token, refreshToken }: DeveloperOAuthRefreshTokenOpts) => Promise<void>;
 }
 

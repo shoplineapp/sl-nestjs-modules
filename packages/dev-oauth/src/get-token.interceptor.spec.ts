@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { ReadTokenFunctionMissingError } from './auth.errors';
 import { DeveloperOAuthRefreshTokenOpts } from './auth.options.interface';
 import { DeveloperOAuthTokenService } from './auth.token.service';
 import { DEVELOPER_OAUTH_OPTIONS } from './constants';
@@ -73,3 +74,51 @@ describe('AuthTokenService', () => {
     });
   });
 });
+
+describe('AuthTokenService with wrong opts', () => {
+  let service: DeveloperOAuthTokenService;
+  let interceptor: GetTokenInterceptor;
+  const opts = {
+    host: 'host',
+    scope: 'scope',
+    appId: 'appId',
+    appSecret: 'appSecret',
+    redirectUri: 'redirectUri',
+  };
+
+  beforeEach(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      providers: [
+        { provide: DEVELOPER_OAUTH_OPTIONS, useValue: opts },
+        DeveloperOAuthTokenService,
+        GetTokenInterceptor,
+      ],
+    }).compile();
+
+    service = module.get(DeveloperOAuthTokenService);
+    interceptor = module.get(GetTokenInterceptor);
+  });
+
+  it('should be defined', () => {
+    expect(interceptor).toBeDefined();
+  });
+
+  describe('#intercept', () => {
+    const request = {};
+    const context = {
+      switchToHttp: () => {
+        return {
+          getRequest: () => request,
+        };
+      },
+    };
+    const next = {
+      handle: () => undefined,
+    };
+
+    it('should throw ReadTokenFunctionMissingError', async () => {
+      await expect(interceptor.intercept(context as never, next)).rejects.toEqual(new ReadTokenFunctionMissingError());
+    });
+  });
+});
+

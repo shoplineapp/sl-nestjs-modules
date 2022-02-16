@@ -1,6 +1,6 @@
 # @sl-nest-module/dev-oauth
 
-Shopline [developer-center](https://shopline-developers.readme.io/docs/get-started) oauth module for [NestJS](https://docs.nestjs.com/) project
+[Shopline Developer Center OAuth](https://shopline-developers.readme.io/docs/get-started) module for [NestJS](https://docs.nestjs.com/) project
 
 ## Installation
 
