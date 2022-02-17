@@ -10,7 +10,7 @@ export class DeveloperOAuthTokenService {
 
   async tokenInfo(token: string) {
     const res = await lastValueFrom(
-      this.http.get(`${this.opts.host}/oauth/token/info`, {
+      this.http.get(`https://${this.opts.host}/oauth/token/info`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
