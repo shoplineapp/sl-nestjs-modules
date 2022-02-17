@@ -23,6 +23,7 @@ export class DeveloperOAuthModule {
           },
         }),
       ],
+      exports: [DeveloperOAuthTokenService],
       providers: [
         {
           provide: DEVELOPER_OAUTH_OPTIONS,
@@ -46,7 +47,7 @@ export class DeveloperOAuthModule {
           inject: [DEVELOPER_OAUTH_OPTIONS],
         }),
       ],
-      exports: [DEVELOPER_OAUTH_OPTIONS],
+      exports: [DEVELOPER_OAUTH_OPTIONS, DeveloperOAuthTokenService],
       providers: [
         {
           provide: DEVELOPER_OAUTH_OPTIONS,
