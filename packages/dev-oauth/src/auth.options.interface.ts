@@ -5,14 +5,18 @@ export type DeveloperOAuthRefreshTokenOpts = {
   refreshToken: string;
 };
 
+export interface DeveloperOAuthTokenStore {
+  readToken: (request: any) => Promise<DeveloperOAuthRefreshTokenOpts>;
+  writeToken: (request: any, { token, refreshToken }: DeveloperOAuthRefreshTokenOpts) => Promise<void>;
+}
+
 export interface DeveloperOAuthOptions {
   host: string;
   scope: string;
   appId: string;
   appSecret: string;
   redirectUri?: string;
-  readToken?: (request: any) => Promise<DeveloperOAuthRefreshTokenOpts>;
-  writeToken?: (request: any, { token, refreshToken }: DeveloperOAuthRefreshTokenOpts) => Promise<void>;
+  tokenStore?: DeveloperOAuthTokenStore;
 }
 
 export interface DeveloperOAuthOptionsFactory {

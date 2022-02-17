@@ -1,8 +1,8 @@
 /**
- * The interceptor called without provide read token function
+ * The interceptor called without provide token store
  */
-export class ReadTokenFunctionMissingError extends Error {
+export class TokenStoreMissingError extends Error {
   constructor() {
-    super('Missing read token function when calling GetTokenInterceptor#intercept');
+    super('Missing token store when calling GetTokenInterceptor#intercept');
   }
 }

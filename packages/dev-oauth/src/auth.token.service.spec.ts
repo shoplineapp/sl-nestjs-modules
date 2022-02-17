@@ -21,8 +21,6 @@ describe('AuthTokenService', () => {
     appId: 'appId',
     appSecret: 'appSecret',
     redirectUri: 'redirectUri',
-    readToken: async () => tokenSet,
-    writeToken: async (request, { token, refreshToken }) => undefined,
   };
 
   beforeEach(async () => {

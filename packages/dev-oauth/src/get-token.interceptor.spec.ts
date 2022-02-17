@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ReadTokenFunctionMissingError } from './auth.errors';
+import { TokenStoreMissingError } from './auth.errors';
 import { DeveloperOAuthRefreshTokenOpts } from './auth.options.interface';
 import { DeveloperOAuthTokenService } from './auth.token.service';
 import { DEVELOPER_OAUTH_OPTIONS } from './constants';
@@ -14,14 +14,17 @@ describe('AuthTokenService', () => {
     token: 'token',
     refreshToken: 'refreshToken',
   };
+  const tokenStore = {
+    readToken: async () => tokenSet,
+    writeToken: jest.fn()
+  };
   const opts = {
     host: 'host',
     scope: 'scope',
     appId: 'appId',
     appSecret: 'appSecret',
     redirectUri: 'redirectUri',
-    readToken: async () => tokenSet,
-    writeToken: jest.fn()
+    tokenStore
   };
 
   beforeEach(async () => {
@@ -64,7 +67,7 @@ describe('AuthTokenService', () => {
       await expect(interceptor.intercept(context as never, next)).resolves.toBe(undefined);
       expect(checkSpy).toBeCalledWith(tokenSet.token)
       expect(refreshSpy).toBeCalledWith(tokenSet.refreshToken)
-      expect(opts.writeToken).toBeCalledWith(request, { token: newToken, refreshToken: newRefreshToken })
+      expect(opts.tokenStore.writeToken).toBeCalledWith(request, { token: newToken, refreshToken: newRefreshToken })
     });
 
     it('should set token', async () => {
@@ -116,8 +119,8 @@ describe('AuthTokenService with wrong opts', () => {
       handle: () => undefined,
     };
 
-    it('should throw ReadTokenFunctionMissingError', async () => {
-      await expect(interceptor.intercept(context as never, next)).rejects.toEqual(new ReadTokenFunctionMissingError());
+    it('should throw TokenStoreMissingError', async () => {
+      await expect(interceptor.intercept(context as never, next)).rejects.toEqual(new TokenStoreMissingError());
     });
   });
 });
