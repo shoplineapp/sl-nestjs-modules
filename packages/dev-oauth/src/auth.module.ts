@@ -34,11 +34,12 @@ export class DeveloperOAuthModule {
     };
   }
 
-  static forRootAsync({ useFactory, inject }: DeveloperOAuthAsyncOptions): DynamicModule {
+  static forRootAsync({ useFactory, inject, imports }: DeveloperOAuthAsyncOptions): DynamicModule {
     return {
       global: true,
       module: DeveloperOAuthModule,
       imports: [
+        ...imports,
         HttpModule,
         JwtModule.registerAsync({
           useClass: DeveloperOAuthOptionsProvider,
