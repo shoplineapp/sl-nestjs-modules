@@ -7,8 +7,16 @@ import { JwtStrategy } from './jwt.strategies';
 import { HttpModule } from '@nestjs/axios';
 import { DeveloperOAuthTokenService } from './auth.token.service';
 
+/**
+ * [Shopline Developer Center OAuth](https://shopline-developers.readme.io/docs/get-started) module for [NestJS](https://docs.nestjs.com/) project
+ */
 @Module({})
 export class DeveloperOAuthModule {
+  /**
+   * Initialize the module
+   * @param opts Configuration option
+   * @return A dynamic `DeveloperOAuthModule`
+   */
   static forRoot(opts: DeveloperOAuthOptions): DynamicModule {
     const { appSecret } = opts;
     return {
@@ -35,6 +43,11 @@ export class DeveloperOAuthModule {
     };
   }
 
+  /**
+   * Initialize the module
+   * @param asyncOptions Configuration option
+   * @return A dynamic `DeveloperOAuthModule`
+   */
   static forRootAsync({ useFactory, inject, imports }: DeveloperOAuthAsyncOptions): DynamicModule {
     return {
       global: true,

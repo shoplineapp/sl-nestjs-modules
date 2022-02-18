@@ -5,6 +5,9 @@ import { DeveloperOAuthOptions } from './auth.options.interface';
 import { DeveloperOAuthTokenService } from './auth.token.service';
 import { DEVELOPER_OAUTH_OPTIONS } from './constants';
 
+/**
+ * The intercepter to get and refresh the token
+ */
 @Injectable()
 export class GetTokenInterceptor implements NestInterceptor {
   constructor(

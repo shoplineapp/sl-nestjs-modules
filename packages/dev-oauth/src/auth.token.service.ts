@@ -4,6 +4,7 @@ import { lastValueFrom } from 'rxjs';
 import { DeveloperOAuthOptions, DeveloperOAuthRefreshTokenOpts } from './auth.options.interface';
 import { DEVELOPER_OAUTH_OPTIONS } from './constants';
 
+/** Service class providing auth function */
 @Injectable()
 export class DeveloperOAuthTokenService {
   constructor(@Inject(DEVELOPER_OAUTH_OPTIONS) private opts: DeveloperOAuthOptions, private http: HttpService) {}
