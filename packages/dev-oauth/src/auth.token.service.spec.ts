@@ -45,7 +45,7 @@ describe('AuthTokenService', () => {
       const httpSpy = jest.spyOn(http, 'get').mockResolvedValue({} as never);
       jest.spyOn(rxjs, 'lastValueFrom').mockResolvedValue(httpRes);
       await expect(service.tokenInfo(token)).resolves.toBe(httpRes.data);
-      expect(httpSpy).toBeCalledWith(`${opts.host}/oauth/token/info`, {
+      expect(httpSpy).toBeCalledWith(`https://${opts.host}/oauth/token/info`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
