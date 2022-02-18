@@ -20,7 +20,6 @@ describe('AuthTokenService', () => {
     scope: 'scope',
     appId: 'appId',
     appSecret: 'appSecret',
-    redirectUri: 'redirectUri',
   };
 
   beforeEach(async () => {

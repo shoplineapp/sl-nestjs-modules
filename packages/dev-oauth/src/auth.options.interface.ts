@@ -15,7 +15,6 @@ export interface DeveloperOAuthOptions {
   scope: string;
   appId: string;
   appSecret: string;
-  redirectUri?: string;
   tokenStore?: DeveloperOAuthTokenStore;
 }
 
