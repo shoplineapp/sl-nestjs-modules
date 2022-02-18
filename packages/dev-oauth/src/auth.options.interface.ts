@@ -10,11 +10,11 @@ export type DeveloperOAuthRefreshTokenOpts = {
  */
 export interface DeveloperOAuthTokenStore {
   /**
-   * The function receives a http request and return the token and refresh token
+   * The function receives a axios request and return the token and refresh token
    */
   readToken: (request: any) => Promise<DeveloperOAuthRefreshTokenOpts>;
   /**
-   * The function receives the http request and store the new token and refresh token
+   * The function receives the axios request and store the new token and refresh token
    */
   writeToken: (request: any, { token, refreshToken }: DeveloperOAuthRefreshTokenOpts) => Promise<void>;
 }

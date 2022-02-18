@@ -26,10 +26,10 @@ The `DeveloperOAuthOptions` are used to initialize the jwt auth guard and get to
 
 `DeveloperOAuthTokenStore`
 
-| Parameter  | Description                                                                      |
-| ---------- | -------------------------------------------------------------------------------- |
-| readToken  | The function receives a http request and return the token and refresh token      |
-| writeToken | The function receives the http request and store the new token and refresh token |
+| Parameter  | Description                                                                       |
+| ---------- | --------------------------------------------------------------------------------- |
+| readToken  | The function receives a axios request and return the token and refresh token      |
+| writeToken | The function receives the axios request and store the new token and refresh token |
 
 ```ts
 // root.module.ts
@@ -40,11 +40,11 @@ import { DeveloperOAuthModule } from '@sl-nest-module/dev-oauth';
 @Module({
   imports: [
     DeveloperOAuthModule.forRoot({
-        host: process.env.DEVELOPER_CENTER_HOST,
-        scope: process.env.DEVELOPER_SCOPE,
-        appId: process.env.DEVELOPER_APP_ID,
-        appSecret: process.env.DEVELOPER_APP_SECRET,
-        tokenStore: tokenStore // which provide the read token and write token function
+      host: process.env.DEVELOPER_CENTER_HOST,
+      scope: process.env.DEVELOPER_SCOPE,
+      appId: process.env.DEVELOPER_APP_ID,
+      appSecret: process.env.DEVELOPER_APP_SECRET,
+      tokenStore: tokenStore, // which provide the read token and write token function
     }),
   ],
 })
@@ -78,6 +78,30 @@ import { UsersService } from './users/users.service';
   ],
 })
 export class RootModule {}
+```
+
+#### Example of DeveloperOAuthTokenStore
+
+```ts
+// users.service.ts
+
+import { Injectable } from '@nestjs/common';
+import { UsersRepository } from './users.repository';
+
+@Injectable()
+export class UsersService implements DeveloperOAuthTokenStore {
+  constructor(private repo: UsersRepository) {}
+
+  async readToken(request: any) {
+    const merchantId = request.params.mid;
+    return this.repo.findOne({ merchantId });
+  }
+
+  async writeToken(request: any, { token, refreshToken }) {
+    const merchantId = request.params.mid;
+    await this.repo.updateToken(merchantId, { token, refreshToken });
+  }
+}
 ```
 
 ### Using jwt auth guard
