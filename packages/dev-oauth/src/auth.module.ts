@@ -5,9 +5,18 @@ import { DeveloperOAuthAsyncOptions, DeveloperOAuthOptions } from './auth.option
 import { DEVELOPER_OAUTH_OPTIONS } from './constants';
 import { JwtStrategy } from './jwt.strategies';
 import { HttpModule } from '@nestjs/axios';
+import { DeveloperOAuthTokenService } from './auth.token.service';
 
+/**
+ * [Shopline Developer Center OAuth](https://shopline-developers.readme.io/docs/get-started) module for [NestJS](https://docs.nestjs.com/) project
+ */
 @Module({})
 export class DeveloperOAuthModule {
+  /**
+   * Initialize the module
+   * @param opts Configuration option
+   * @return A dynamic `DeveloperOAuthModule`
+   */
   static forRoot(opts: DeveloperOAuthOptions): DynamicModule {
     const { appSecret } = opts;
     return {
@@ -22,28 +31,36 @@ export class DeveloperOAuthModule {
           },
         }),
       ],
+      exports: [DeveloperOAuthTokenService],
       providers: [
         {
           provide: DEVELOPER_OAUTH_OPTIONS,
           useValue: opts,
         },
         JwtStrategy,
+        DeveloperOAuthTokenService,
       ],
     };
   }
 
-  static forRootAsync({ useFactory, inject }: DeveloperOAuthAsyncOptions): DynamicModule {
+  /**
+   * Initialize the module
+   * @param asyncOptions Configuration option
+   * @return A dynamic `DeveloperOAuthModule`
+   */
+  static forRootAsync({ useFactory, inject, imports }: DeveloperOAuthAsyncOptions): DynamicModule {
     return {
       global: true,
       module: DeveloperOAuthModule,
       imports: [
+        ...imports,
         HttpModule,
         JwtModule.registerAsync({
           useClass: DeveloperOAuthOptionsProvider,
           inject: [DEVELOPER_OAUTH_OPTIONS],
         }),
       ],
-      exports: [DEVELOPER_OAUTH_OPTIONS],
+      exports: [DEVELOPER_OAUTH_OPTIONS, DeveloperOAuthTokenService],
       providers: [
         {
           provide: DEVELOPER_OAUTH_OPTIONS,
@@ -51,6 +68,7 @@ export class DeveloperOAuthModule {
           inject: inject ?? [],
         },
         JwtStrategy,
+        DeveloperOAuthTokenService,
         DeveloperOAuthOptionsProvider,
       ],
     };
