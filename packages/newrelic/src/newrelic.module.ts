@@ -14,7 +14,7 @@ export class NewrelicModule {
   public static register(opts?: NewrelicOptions): DynamicModule {
     const providers = this.createNewrelicProviders();
     return {
-      global: opts?.global || false,
+      global: opts?.global || true,
       module: NewrelicModule,
       providers: providers,
       exports: providers,

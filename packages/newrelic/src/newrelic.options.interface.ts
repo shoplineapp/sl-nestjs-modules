@@ -3,7 +3,7 @@
  */
 export interface NewrelicOptions {
   /**
-   * set to true if register newrelic module as global module. default is false.
+   * config if newrelic module is register as global module. default is true.
    */
   global?: boolean;
 }
