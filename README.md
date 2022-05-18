@@ -12,6 +12,7 @@ Collection of shared nestjs module used in developer-center apps
 | [@sl-nest-module/aes](packages/aes)               | 0.0.1   |
 | [@sl-nest-module/aws-s3](packages/aws-s3)         | 0.0.1   |
 | [@sl-nest-module/aws-ses](packages/aws-ses)       | 0.0.1   |
+| [@sl-nest-module/newrelic](packages/newrelic)       | 0.0.1   |
 
 ## Contributing
 
