@@ -10,11 +10,12 @@ yarn add @sl-nest-module/newrelic
 
 ## Usage
 
-### Setup newrelic
-- `import 'newrelic'` as the first line of your app's main module, usually in `main.ts` file. Please refer to the [official documentation](https://docs.newrelic.com/docs/apm/agents/nodejs-agent/installation-configuration/install-nodejs-agent) for more detailed information.
+### Setup newrelic agent and configuration
+- For containerized applications, please refer to [Install the Node.js agent for Docker](https://docs.newrelic.com/docs/apm/agents/nodejs-agent/installation-configuration/install-nodejs-agent-docker) guide. Otherwise, Please refer to [Install the Node.js agent](https://docs.newrelic.com/docs/apm/agents/nodejs-agent/installation-configuration/install-nodejs-agent) guide.
 
-- Setup the `newrelic.ts` file in `/src`. Please refer to this [official integration guide](https://newrelic.com/blog/how-to-relic/new-relic-nestjs) for more information.
+- `import 'newrelic'` as the first line of your app's main module, usually in `main.ts` file. Please follow the [official nest integration guide](https://newrelic.com/blog/how-to-relic/new-relic-nestjs) for more detailed information.
 
+- Setup [newrelic configuration](https://docs.newrelic.com/docs/apm/agents/nodejs-agent/installation-configuration/nodejs-agent-configuration) by editing your newrelic.ts config file or by setting an environment variable.
 
 ### Registering module
 Import `NewrelicModule` into the root `AppModule` and use the `register()` method to configure it. This method accepts an optional `NewrelicOptions`.
@@ -26,7 +27,7 @@ Import `NewrelicModule` into the root `AppModule` and use the `register()` metho
 | global    | Config if newrelic module is register as global module. Default is true.                                |
 
 ### Send web transaction to newrelic
-Config `NewrelicInterceptor` as [global interceptor](https://docs.nestjs.com/interceptors#binding-interceptors) and it will send all web transaction to newrelic using [startWebTransaction](https://docs.newrelic.com/docs/apm/agents/nodejs-agent/api-guides/nodejs-agent-api#startWebTransaction) method.
+Config `NewrelicInterceptor` as [global interceptor](https://docs.nestjs.com/interceptors#binding-interceptors). This interceptor will send web transactions to newrelic using [startWebTransaction](https://docs.newrelic.com/docs/apm/agents/nodejs-agent/api-guides/nodejs-agent-api#startWebTransaction) method, and send errors to newrelic by calling [noticeError](https://docs.newrelic.com/docs/apm/agents/nodejs-agent/api-guides/nodejs-agent-api#noticeError) if error occurs.
 
 ```typescript
 // app.module.ts
@@ -69,3 +70,50 @@ export class MyCronJob {
 }
 
 ```
+
+### Calling newrelic APIs
+You can call [newrelic agent API](https://docs.newrelic.com/docs/apm/agents/nodejs-agent/api-guides/nodejs-agent-api#noticeError) by injecting newrelic agent into your services.
+
+For example, you may call [addCustomAttributes](https://docs.newrelic.com/docs/apm/agents/nodejs-agent/api-guides/nodejs-agent-api#add-custom-attributes) to set multiple custom attribute values to appear in the transaction trace detail view.
+
+```typescript
+import { Inject, Injectable } from '@nestjs/common';
+import { NEWRELIC } from '@sl-nest-module/newrelic';
+
+@Injectable()
+export class MyService {
+  constructor(@Inject(NEWRELIC) private newrelicAgent) {}
+
+  async doSomething(arg1, arg2, ...args) {
+    try {
+      this.newrelicAgent.addCustomAttributes({
+        myCustomAttribute1: arg1,
+        myCustomAttribute2: arg2,
+      });
+      // your function logic
+      return 'success';
+    } catch (error) {
+      this.newrelicAgent.noticeError(error, {
+        myCustomAttribute1: arg1,
+        myCustomAttribute2: arg2,
+      });
+    }
+  }
+}
+```
+
+## For local development
+You may set `NEW_RELIC_ENABLED` to `false` in local development to stop the newrelic agent from starting up.
+
+```json
+// package.json
+{
+ "scripts": {
+    "start": "nest start",
+    "start:dev": "NEW_RELIC_ENABLED=false nest start --watch",
+  }
+}
+```
+
+## For testing
+You may manual mock this module by copying `__mocks__` directory to your src folder. By doing so, newrelic agent will not be imported when running unit test. For advanced mocking, please refer to [Jest mocking guide](https://jestjs.io/docs/manual-mocks#mocking-node-modules).
