@@ -1,22 +1,13 @@
 {
-  "name": "sl-nest-module",
-  "version": "0.0.0",
+  "name": "@shopline/sl-nestjs-modules",
+  "version": "1.0.0",
   "license": "UNLICENSED",
-  "private": true,
+  "private": false,
   "workspaces": [
     "packages/*"
   ],
   "scripts": {
-    "postinstall": "lerna bootstrap",
-    "build:sl-nest-module": "lerna run --parallel --scope \"@sl-nest-module/*\" build",
-    "local-npm": "verdaccio -c ./verdaccio.config.local.yaml",
-    "release:changelog": "echo \"WIP\" && exit 0",
-    "release:publish:dry": "lerna publish from-package --dist-tag latest --contents dist --registry=\"http://localhost:4873/\" --yes --no-push --no-git-tag-version",
-    "release:publish": "lerna publish from-package --dist-tag latest --contents dist",
-    "release:tag": "echo \"WIP\" && exit 0",
-    "release:version": "lerna version --no-changelog --no-push --no-git-tag-version",
-    "test:e2e:release": "node ./scripts/publish-npm.local.js",
-    "test:sl-nest-module": "lerna run --parallel --scope \"@sl-nest-module/*\" test"
+    "publish": "npm publish --access public"
   },
   "devDependencies": {
     "@types/node": "^16.11.6",
@@ -27,5 +18,22 @@
     "rxjs": "^7.4.0",
     "verdaccio": "^5.2.0",
     "yargs": "^17.2.1"
-  }
+  },
+  "description": "Collection of shared nestjs module used in developer-center apps",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shoplineapp/sl-nestjs-modules.git"
+  },
+  "keywords": [
+    "shopline",
+    "nestjs",
+    "module",
+    "developer-center"
+  ],
+  "author": "hello@shoplineapp.com",
+  "bugs": {
+    "url": "https://github.com/shoplineapp/sl-nestjs-modules/issues"
+  },
+  "homepage": "https://github.com/shoplineapp/sl-nestjs-modules#readme"
 }

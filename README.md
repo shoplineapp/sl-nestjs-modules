@@ -1,4 +1,4 @@
-# sl-nest-module
+# sl-nestjs-modules
 
 Collection of shared nestjs module used in developer-center apps
 
