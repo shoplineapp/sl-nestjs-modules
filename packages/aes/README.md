@@ -1,11 +1,11 @@
-# @sl-nest-module/aes
+# @sl-nestjs-modules/aes
 
 [Crypto JS](https://github.com/brix/crypto-js) module for [NestJS](https://docs.nestjs.com/) project
 
 ## Installation
 
 ```sh
-yarn add @sl-nest-module/aes
+yarn add @sl-nestjs-modules/aes
 ```
 
 ## Usage
@@ -18,7 +18,7 @@ For the detail of the encryption default setting, see [here](https://cryptojs.gi
 // foo.module.ts
 
 import { Module } from '@nestjs/common';
-import { AESModule } from '@sl-nest-module/aes';
+import { AESModule } from '@sl-nestjs-modules/aes';
 
 @Module({
   imports: [AESModule],
@@ -51,7 +51,7 @@ An empty string will be returned if fail to decrypt ciphertext.
 // foo.service.ts
 
 import { Injectable } from '@nestjs/common';
-import { AESService } from '@sl-nest-module/aes';
+import { AESService } from '@sl-nestjs-modules/aes';
 
 @Injectable()
 export class FooService {

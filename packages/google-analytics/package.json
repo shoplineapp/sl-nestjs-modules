@@ -1,5 +1,5 @@
 {
-  "name": "@sl-nest-module/google-analytics",
+  "name": "@sl-nestjs-modules/google-analytics",
   "license": "MIT",
   "version": "0.0.17",
   "main": "dist/index.js",

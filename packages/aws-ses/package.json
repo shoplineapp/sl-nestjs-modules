@@ -1,5 +1,5 @@
 {
-  "name": "@sl-nest-module/aws-ses",
+  "name": "@sl-nestjs-modules/aws-ses",
   "license": "MIT",
   "version": "0.0.1",
   "main": "dist/index.js",

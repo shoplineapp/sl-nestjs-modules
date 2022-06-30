@@ -1,11 +1,11 @@
-# @sl-nest-module/dev-oauth
+# @sl-nestjs-modules/dev-oauth
 
 [Shopline Developer Center OAuth](https://shopline-developers.readme.io/docs/get-started) module for [NestJS](https://docs.nestjs.com/) project
 
 ## Installation
 
 ```sh
-yarn add @sl-nest-module/dev-oauth
+yarn add @sl-nestjs-modules/dev-oauth
 ```
 
 ## Usage
@@ -35,7 +35,7 @@ The `DeveloperOAuthOptions` are used to initialize the jwt auth guard and get to
 // root.module.ts
 
 import { Module } from '@nestjs/common';
-import { DeveloperOAuthModule } from '@sl-nest-module/dev-oauth';
+import { DeveloperOAuthModule } from '@sl-nestjs-modules/dev-oauth';
 
 @Module({
   imports: [
@@ -57,7 +57,7 @@ export class RootModule {}
 // root.module.ts
 
 import { Module } from '@nestjs/common';
-import { DeveloperOAuthModule } from '@sl-nest-module/dev-oauth';
+import { DeveloperOAuthModule } from '@sl-nestjs-modules/dev-oauth';
 import { UsersService } from './users/users.service';
 
 @Module({
@@ -109,7 +109,7 @@ export class UsersService implements DeveloperOAuthTokenStore {
 ```ts
 // foo.controller.ts
 
-import { DeveloperOAuthJwtAuthGuard, User } from '@sl-nest-module/dev-oauth';
+import { DeveloperOAuthJwtAuthGuard, User } from '@sl-nestjs-modules/dev-oauth';
 import { Controller, Post, UseGuards } from '@nestjs/common';
 
 @Controller('foo')
@@ -129,7 +129,7 @@ export class FooController {
 ```ts
 // foo.controller.ts
 
-import { GetTokenInterceptor } from '@sl-nest-module/dev-oauth';
+import { GetTokenInterceptor } from '@sl-nestjs-modules/dev-oauth';
 import { Controller, Get, UseInterceptors } from '@nestjs/common';
 import { Token } from './token.decorator';
 

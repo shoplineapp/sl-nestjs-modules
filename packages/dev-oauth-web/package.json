@@ -1,5 +1,5 @@
 {
-  "name": "@sl-nest-module/dev-oauth-web",
+  "name": "@sl-nestjs-modules/dev-oauth-web",
   "license": "MIT",
   "version": "0.0.1",
   "main": "dist/index.js",

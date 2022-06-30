@@ -1,11 +1,11 @@
-# @sl-nest-module/aws-ses
+# @sl-nestjs-modules/aws-ses
 
 [AWS SES](https://aws.amazon.com/ses/) module for [NestJS](https://docs.nestjs.com/) project
 
 ## Installation
 
 ```sh
-yarn add @sl-nest-module/aws-ses
+yarn add @sl-nestjs-modules/aws-ses
 ```
 
 ## Usage
@@ -22,7 +22,7 @@ For setting of the AWS credentials, see [here](https://docs.aws.amazon.com/sdk-f
 // foo.module.ts
 
 import { Module } from '@nestjs/common';
-import { AwsSESModule } from '@sl-nest-module/aws-ses';
+import { AwsSESModule } from '@sl-nestjs-modules/aws-ses';
 import { fromWebToken } from '@aws-sdk/credential-providers';
 
 @Module({
@@ -47,7 +47,7 @@ export class FooModule {}
 
 import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { AwsSESModule } from '@sl-nest-module/aws-ses';
+import { AwsSESModule } from '@sl-nestjs-modules/aws-ses';
 import { fromWebToken } from '@aws-sdk/credential-providers';
 
 @Module({
@@ -85,7 +85,7 @@ For more information, see [here](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3
 // foo.service.ts
 
 import { Injectable } from '@nestjs/common';
-import { AwsSESService } from '@sl-nest-module/aws-ses';
+import { AwsSESService } from '@sl-nestjs-modules/aws-ses';
 
 @Injectable()
 export class FooService {

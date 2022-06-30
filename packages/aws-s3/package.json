@@ -1,5 +1,5 @@
 {
-  "name": "@sl-nest-module/aws-s3",
+  "name": "@sl-nestjs-modules/aws-s3",
   "license": "MIT",
   "version": "0.0.1",
   "main": "dist/index.js",

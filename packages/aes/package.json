@@ -1,5 +1,5 @@
 {
-  "name": "@sl-nest-module/aes",
+  "name": "@sl-nestjs-modules/aes",
   "license": "MIT",
   "version": "0.0.1",
   "main": "dist/index.js",

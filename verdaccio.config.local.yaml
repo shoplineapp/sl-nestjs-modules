@@ -40,7 +40,7 @@ uplinks:
     url: https://registry.npmjs.org/
 
 packages:
-  '@sl-nest-module/*':
+  '@sl-nestjs-modules/*':
     # scoped packages
     access: $all
     publish: $all

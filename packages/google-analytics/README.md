@@ -1,11 +1,11 @@
-# @sl-nest-module/google-analytics
+# @sl-nestjs-modules/google-analytics
 
 [Google Analytics 4](https://developers.google.com/analytics/devguides/collection/protocol/ga4) module for [NestJS](https://docs.nestjs.com/) project
 
 ## Installation
 
 ```sh
-yarn add @sl-nest-module/google-analytics
+yarn add @sl-nestjs-modules/google-analytics
 ```
 
 ## Google Analytics Parameters
@@ -42,7 +42,7 @@ Measurement ID and API secret are mandatory inputs passed to the module static r
 // foo.module.ts
 
 import { Module } from '@nestjs/common';
-import { GoogleAnalyticsModule } from '@sl-nest-module/google-analytics';
+import { GoogleAnalyticsModule } from '@sl-nestjs-modules/google-analytics';
 
 @Module({
   imports: [
@@ -65,7 +65,7 @@ Users are advised to implement their own `ConfigService`. Insofar as the API off
 
 import { Module } from '@nestjs/common';
 import { ConfigService } from '~config/config.service';
-import { GoogleAnalyticsModule } from '@sl-nest-module/google-analytics';
+import { GoogleAnalyticsModule } from '@sl-nestjs-modules/google-analytics';
 
 @Module({
   imports: [
@@ -92,7 +92,7 @@ Client ID, event name are necessary parameters to the function. The event payloa
 // foo.service.ts
 
 import { Injectable } from '@nestjs/common';
-import { GoogleAnalyticsService } from '@sl-nest-module/google-analytics';
+import { GoogleAnalyticsService } from '@sl-nestjs-modules/google-analytics';
 
 @Injectable()
 export class FooService {
