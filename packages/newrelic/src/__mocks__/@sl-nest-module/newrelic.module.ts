@@ -1,5 +1,5 @@
 import { Module, DynamicModule } from '@nestjs/common';
-import { NewrelicOptions, NEWRELIC, NewrelicService } from '@sl-nest-module/newrelic';
+import { NewrelicOptions, NEWRELIC, NewrelicService } from '@sl-nestjs-modules/newrelic';
 
 @Module({})
 export class NewrelicModule {

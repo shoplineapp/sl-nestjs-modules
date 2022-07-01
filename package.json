@@ -2,12 +2,22 @@
   "name": "@shopline/sl-nestjs-modules",
   "version": "1.0.0",
   "license": "UNLICENSED",
-  "private": false,
+  "private": true,
   "workspaces": [
     "packages/*"
   ],
   "scripts": {
-    "publish": "npm publish --access public"
+    "publish": "npm publish --access public",
+    "postinstall": "lerna bootstrap",
+    "build:sl-nestjs-modules": "lerna run --parallel --scope \"@sl-nestjs-modules/*\" build",
+    "local-npm": "verdaccio -c ./verdaccio.config.local.yaml",
+    "release:changelog": "echo \"WIP\" && exit 0",
+    "release:publish:dry": "lerna publish from-package --dist-tag latest --contents dist --registry=\"http://localhost:4873/\" --yes --no-push --no-git-tag-version",
+    "release:publish": "lerna publish from-package --dist-tag latest --contents dist",
+    "release:tag": "echo \"WIP\" && exit 0",
+    "release:version": "lerna version --no-changelog --no-push --no-git-tag-version",
+    "test:e2e:release": "node ./scripts/publish-npm.local.js",
+    "test:sl-nestjs-modules": "lerna run --parallel --scope \"@sl-nestjs-modules/*\" test"
   },
   "devDependencies": {
     "@types/node": "^16.11.6",

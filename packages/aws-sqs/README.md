@@ -1,11 +1,11 @@
-# @sl-nest-module/aws-sqs
+# @sl-nestjs-modules/aws-sqs
 
 [AWS SQS](https://aws.amazon.com/sqs/) module for [NestJS](https://docs.nestjs.com/) project
 
 ## Installation
 
 ```sh
-yarn add @sl-nest-module/aws-sqs
+yarn add @sl-nestjs-modules/aws-sqs
 ```
 
 ## Usage
@@ -22,7 +22,7 @@ For setting of the AWS credentials, see [here](https://docs.aws.amazon.com/sdk-f
 // foo.module.ts
 
 import { Module } from '@nestjs/common';
-import { AwsSQSModule } from '@sl-nest-module/aws-sqs';
+import { AwsSQSModule } from '@sl-nestjs-modules/aws-sqs';
 import { fromWebToken } from '@aws-sdk/credential-providers';
 
 @Module({
@@ -47,7 +47,7 @@ export class FooModule {}
 
 import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { AwsSQSModule } from '@sl-nest-module/aws-sqs';
+import { AwsSQSModule } from '@sl-nestjs-modules/aws-sqs';
 import { fromWebToken } from '@aws-sdk/credential-providers';
 
 @Module({
@@ -83,7 +83,7 @@ For more information, see [here](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3
 // foo.service.ts
 
 import { Injectable } from '@nestjs/common';
-import { AwsSQSService } from '@sl-nest-module/aws-sqs';
+import { AwsSQSService } from '@sl-nestjs-modules/aws-sqs';
 
 @Injectable()
 export class FooService {

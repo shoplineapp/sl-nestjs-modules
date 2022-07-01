@@ -17,5 +17,5 @@ jobs:
         with:
           node-version: 16
       - run: yarn install
-      - run: yarn build:sl-nest-module
+      - run: yarn build:sl-nestjs-modules
       - run: yarn test:e2e:release

@@ -1,11 +1,11 @@
-# @sl-nest-module/newrelic
+# @sl-nestjs-modules/newrelic
 
 [newrelic](https://newrelic.com) module for [NestJS](https://docs.nestjs.com/) project
 
 ## Installation
 
 ```sh
-yarn add @sl-nest-module/newrelic
+yarn add @sl-nestjs-modules/newrelic
 ```
 
 ## Usage
@@ -33,7 +33,7 @@ Config `NewrelicInterceptor` as [global interceptor](https://docs.nestjs.com/int
 // app.module.ts
 import { Module } from '@nestjs/common';
 import { APP_INTERCEPTOR } from '@nestjs/core';
-import { NewrelicModule, NewrelicInterceptor } from '@sl-nest-module/newrelic';
+import { NewrelicModule, NewrelicInterceptor } from '@sl-nestjs-modules/newrelic';
 
 @Module({
   imports: [
@@ -58,7 +58,7 @@ Add `StartBackgroundTransaction` decorator to your background job (queue-job, cr
 
 ```typescript
 // my-cron-job.ts
-import { StartBackgroundTransaction } from '@sl-nest-module/newrelic';
+import { StartBackgroundTransaction } from '@sl-nestjs-modules/newrelic';
 
 export class MyCronJob {
 
@@ -78,7 +78,7 @@ For example, you may call [addCustomAttributes](https://docs.newrelic.com/docs/a
 
 ```typescript
 import { Inject, Injectable } from '@nestjs/common';
-import { NEWRELIC } from '@sl-nest-module/newrelic';
+import { NEWRELIC } from '@sl-nestjs-modules/newrelic';
 
 @Injectable()
 export class MyService {

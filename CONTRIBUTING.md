@@ -26,7 +26,7 @@ A minimal example `package.json`
 
 ```json
 {
-  "name": "@sl-nest-module/hello-world",
+  "name": "@sl-nestjs-modules/hello-world",
   "license": "MIT",
   "version": "0.0.1",
   "main": "dist/index.js",
@@ -125,7 +125,7 @@ To configure yarn to use the local registry, add this to `yarnrc.yml`
 # yarnrc.yml
 
 npmScopes:
-  'sl-nest-module':
+  'sl-nestjs-modules':
     npmRegistryServer: http://localhost:4873
 unsafeHttpWhitelist:
   - 'localhost'
@@ -134,7 +134,7 @@ unsafeHttpWhitelist:
 To configure npm to the use local registry, add this to `.npmrc`
 
 ```
-@sl-nest-module:registry=http://localhost:4873
+@sl-nestjs-modules:registry=http://localhost:4873
 ```
 
 _Hint: If you need to install your local package in CI environment, you may use [ngrok](https://ngrok.com/) to generate a url pointing to your local registry and use that url in `yarnrc.yml` or `.npmrc`_

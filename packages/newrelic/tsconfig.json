@@ -12,7 +12,7 @@
     "baseUrl": "./",
     "noLib": false,
     "paths": {
-      "@sl-nest-module/newrelic": ["src/index"],
+      "@sl-nestjs-modules/newrelic": ["src/index"],
     }
   },
   "exclude": ["node_modules", "dist", "jest.setup.ts"]

@@ -1,11 +1,11 @@
-# @sl-nest-module/aws-lambda
+# @sl-nestjs-modules/aws-lambda
 
 [AWS Lambda](https://aws.amazon.com/lambda/) module for [NestJS](https://docs.nestjs.com/) project
 
 ## Installation
 
 ```sh
-yarn add @sl-nest-module/aws-lambda
+yarn add @sl-nestjs-modules/aws-lambda
 ```
 
 ## Usage
@@ -24,7 +24,7 @@ For different ways to provide the AWS credentials, see [here](https://docs.aws.a
 // foo.module.ts
 
 import { Module } from '@nestjs/common';
-import { AwsLambdaModule } from '@sl-nest-module/aws-lambda';
+import { AwsLambdaModule } from '@sl-nestjs-modules/aws-lambda';
 import { fromWebToken } from '@aws-sdk/credential-providers';
 
 @Module({
@@ -49,7 +49,7 @@ export class FooModule {}
 
 import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { AwsLambdaModule } from '@sl-nest-module/aws-lambda';
+import { AwsLambdaModule } from '@sl-nestjs-modules/aws-lambda';
 import { fromWebToken } from '@aws-sdk/credential-providers';
 
 @Module({
@@ -76,7 +76,7 @@ export class FooModule {}
 // foo.service.ts
 
 import { Injectable } from '@nestjs/common';
-import { AwsLambdaService, constructLambdaArn, objectToPayload, payloadToObject } from '@sl-nest-module/aws-lambda';
+import { AwsLambdaService, constructLambdaArn, objectToPayload, payloadToObject } from '@sl-nestjs-modules/aws-lambda';
 
 @Injectable()
 export class FooService {

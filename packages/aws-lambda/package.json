@@ -1,5 +1,5 @@
 {
-  "name": "@sl-nest-module/aws-lambda",
+  "name": "@sl-nestjs-modules/aws-lambda",
   "license": "MIT",
   "version": "0.0.1",
   "main": "dist/index.js",

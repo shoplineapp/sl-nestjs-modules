@@ -1,11 +1,11 @@
-# @sl-nest-module/dev-oauth-web
+# @sl-nestjs-modules/dev-oauth-web
 
 This module provide the OAuth flow logic required to integrate with Shopline [Developer Center](https://shopline-developers.readme.io/docs/get-started). This should only be used in a [NestJS](https://docs.nestjs.com/) web backend project. Also note that session is required to use this project.
 
 ## Installation
 
 ```sh
-yarn add @sl-nest-module/dev-oauth-web
+yarn add @sl-nestjs-modules/dev-oauth-web
 ```
 
 ## Usage
@@ -15,7 +15,7 @@ yarn add @sl-nest-module/dev-oauth-web
 `DeveloperOAuthModule` provided 2 methods to register: `forRoot` and `forRootAsync`. Once imported in your root module, `DeveloperOAuthModule` will add an API route specified by the `callbackPath` option, which will process the OAuth callback from the Developer OAuth server. For more details on the callback path, see [How it works](#how-it-works).
 
 ```typescript
-import { DeveloperOAuthModule } from '@sl-nest-module/dev-oauth-web';
+import { DeveloperOAuthModule } from '@sl-nestjs-modules/dev-oauth-web';
 
 // Example 1: forRoot
 
@@ -68,7 +68,7 @@ To protect routes with OAuth authentication, apply `DeveloperOAuthMiddleware`.
 For different ways to apply middleware in NestJS, see [here](https://docs.nestjs.com/middleware#applying-middleware). Please be careful not to apply the middleware to the OAuth callback path, which may result in an infinite redirection.
 
 ```typescript
-import { DeveloperOAuthMiddleware } from '@sl-nest-module/dev-oauth-web';
+import { DeveloperOAuthMiddleware } from '@sl-nestjs-modules/dev-oauth-web';
 
 @Module({
   controllers: [ProductController],
@@ -87,7 +87,7 @@ export class ProductModule implements NestModule {
 To retrieve the Developer OAuth token set by the `DeveloperOAuthMiddleware`, use the `GetOAuthToken` decorator.
 
 ```typescript
-import { GetOAuthToken, DeveloperOAuthToken } from '@sl-nest-module/dev-oauth-web';
+import { GetOAuthToken, DeveloperOAuthToken } from '@sl-nestjs-modules/dev-oauth-web';
 
 @Controller('products')
 export class ProductController {
@@ -109,7 +109,7 @@ import {
   DeveloperOAuthTokenInfoInterceptor,
   GetOAuthTokenInfo,
   DeveloperOAuthTokenInfo,
-} from '@sl-nest-module/dev-oauth-web';
+} from '@sl-nestjs-modules/dev-oauth-web';
 
 @Controller('products')
 export class ProductController {
