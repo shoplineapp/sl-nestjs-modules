@@ -15,5 +15,5 @@
       "@sl-nestjs-modules/newrelic": ["src/index"],
     }
   },
-  "exclude": ["node_modules", "dist", "jest.setup.ts"]
+  "exclude": ["node_modules", "dist", "jest.setup.ts", "src/**/*.spec.ts"]
 }
